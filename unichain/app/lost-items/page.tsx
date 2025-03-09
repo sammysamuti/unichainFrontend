@@ -11,10 +11,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Upload, Camera } from "lucide-react";
+import { PageContainer } from "@/components/page-container";
 
 export default function LostItemsPage() {
   return (
-    <div className="container mx-auto py-6">
+    <PageContainer>
       <div className="mb-6 flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Report Lost Item</h1>
         <p className="text-muted-foreground">
@@ -169,6 +170,6 @@ export default function LostItemsPage() {
           </Card>
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 }

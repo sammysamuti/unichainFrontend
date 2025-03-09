@@ -18,7 +18,6 @@ import {
   FileQuestion,
 } from "lucide-react";
 
-
 import {
   Sidebar,
   SidebarContent,
@@ -35,6 +34,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+
 export function AppSidebar() {
   return (
     <Sidebar>
@@ -42,7 +42,7 @@ export function AppSidebar() {
         <div className="flex items-center gap-2 px-4 py-2">
           <Avatar className="h-8 w-8">
             <AvatarImage
-              src="/placeholder.svg?height=32&width=32"
+              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=800&auto=format&fit=crop&q=60"
               alt="@user"
             />
             <AvatarFallback>US</AvatarFallback>
@@ -62,11 +62,11 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/">
+                <SidebarMenuButton asChild tooltip="Overview">
+                  <Link href="/">
                     <Home className="h-4 w-4" />
                     <span>Overview</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
@@ -78,11 +78,11 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/wallet">
+                <SidebarMenuButton asChild tooltip="My Wallet">
+                  <Link href="/my-wallet">
                     <Wallet className="h-4 w-4" />
                     <span>My Wallet</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -94,27 +94,27 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/credentials">
+                <SidebarMenuButton asChild tooltip="My Credentials">
+                  <Link href="/credentials">
                     <Award className="h-4 w-4" />
                     <span>My Credentials</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/transcripts">
+              {/* <SidebarMenuItem>
+                <SidebarMenuButton asChild tooltip="Transcripts">
+                  <Link href="/transcripts">
                     <FileText className="h-4 w-4" />
                     <span>Transcripts</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
-              </SidebarMenuItem>
+              </SidebarMenuItem> */}
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/courses">
+                <SidebarMenuButton asChild tooltip="Courses">
+                  <Link href="/courses">
                     <BookOpen className="h-4 w-4" />
                     <span>Courses</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -150,27 +150,27 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/support-groups">
+                <SidebarMenuButton asChild tooltip="Support Groups">
+                  <Link href="/support-groups">
                     <Users className="h-4 w-4" />
                     <span>Support Groups</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/counseling">
+              {/* <SidebarMenuItem>
+                <SidebarMenuButton asChild tooltip="Counseling">
+                  <Link href="/counseling">
                     <Brain className="h-4 w-4" />
                     <span>Counseling</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
-              </SidebarMenuItem>
+              </SidebarMenuItem> */}
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/chat">
+                <SidebarMenuButton asChild tooltip="Anonymous Chat">
+                  <Link href="/anonymous-chat">
                     <MessageSquare className="h-4 w-4" />
                     <span>Anonymous Chat</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -182,33 +182,35 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/lost-items">
+                <SidebarMenuButton asChild tooltip="Report Lost Item">
+                  <Link href="/lost-items">
                     <Search className="h-4 w-4" />
                     <span>Report Lost Item</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/found-items">
+                <SidebarMenuButton asChild tooltip="Found Items">
+                  <Link href="/found-items">
                     <MapPin className="h-4 w-4" />
                     <span>Found Items</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <a href="/settings">
+            <SidebarMenuButton asChild tooltip="Settings">
+              <Link href="/settings">
                 <Settings className="h-4 w-4" />
                 <span>Settings</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

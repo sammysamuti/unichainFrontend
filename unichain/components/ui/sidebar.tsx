@@ -27,16 +27,11 @@ import {
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-// const SIDEBAR_WIDTH = "16rem"
-// const SIDEBAR_WIDTH_MOBILE = "18rem"
-// const SIDEBAR_WIDTH_ICON = "3rem"
+const SIDEBAR_WIDTH = "280px"
+const SIDEBAR_WIDTH_MOBILE = "320px"
+const SIDEBAR_WIDTH_ICON = "64px"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
-
-// Update the width variables in the sidebar component
-const SIDEBAR_WIDTH = "280px"; // Increased from 16rem
-const SIDEBAR_WIDTH_MOBILE = "320px"; // Increased from 18rem
-const SIDEBAR_WIDTH_ICON = "64px"; // Increased from 3rem
 type SidebarContext = {
   state: "expanded" | "collapsed"
   open: boolean
@@ -49,13 +44,16 @@ type SidebarContext = {
 
 const SidebarContext = React.createContext<SidebarContext | null>(null)
 
-function useSidebar() {
+function useSidebarContext() {
   const context = React.useContext(SidebarContext)
   if (!context) {
     throw new Error("useSidebar must be used within a SidebarProvider.")
   }
-
   return context
+}
+
+function useSidebar() {
+  return useSidebarContext()
 }
 
 function SidebarProvider({
@@ -88,7 +86,9 @@ function SidebarProvider({
       }
 
       // This sets the cookie to keep the sidebar state.
-      document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+      if (typeof window !== 'undefined') {
+        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+      }
     },
     [setOpenProp, open]
   )
@@ -364,7 +364,7 @@ function SidebarSeparator({
     <Separator
       data-slot="sidebar-separator"
       data-sidebar="separator"
-      className={cn("bg-sidebar-border mx-2 w-auto", className)}
+      className={cn("bg-sidebar-border w-auto", className)}
       {...props}
     />
   )
@@ -714,8 +714,8 @@ export {
   SidebarMenu,
   SidebarMenuAction,
   SidebarMenuBadge,
-  SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuButton,
   SidebarMenuSkeleton,
   SidebarMenuSub,
   SidebarMenuSubButton,
@@ -724,5 +724,6 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
-  useSidebar,
+  useSidebarContext as useSidebar,
+  type SidebarContext,
 }

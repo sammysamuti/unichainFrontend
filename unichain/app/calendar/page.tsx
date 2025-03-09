@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -20,11 +19,11 @@ import {
   MapPin,
   Users,
 } from "lucide-react";
-
+import { PageContainer } from "@/components/page-container";
 
 export default function CalendarPage() {
   return (
-    <div className="space-y-6">
+    <PageContainer>
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Calendar</h1>
@@ -266,7 +265,7 @@ export default function CalendarPage() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+    </PageContainer>
   );
 }
 

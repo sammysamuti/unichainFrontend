@@ -18,10 +18,11 @@ import {
   ArrowRight,
   FileText,
 } from "lucide-react";
+import { PageContainer } from "@/components/page-container";
 
 export default function MentalHealthPage() {
   return (
-    <div className="space-y-6">
+    <PageContainer>
       <div>
         <h1 className="text-2xl font-bold tracking-tight">
           Mental Health Resources
@@ -32,7 +33,7 @@ export default function MentalHealthPage() {
         </p>
       </div>
 
-      <Tabs defaultValue="dashboard" className="w-full">
+      <Tabs defaultValue="dashboard" className="w-full mt-6">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
           <TabsTrigger value="resources">Resources</TabsTrigger>
@@ -233,7 +234,7 @@ export default function MentalHealthPage() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+    </PageContainer>
   );
 }
 

@@ -9,10 +9,11 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Award, Download, Eye, FileText, Share2 } from "lucide-react";
+import { PageContainer } from "@/components/page-container";
 
 export default function CredentialsPage() {
   return (
-    <div className="container mx-auto py-6">
+    <PageContainer>
       <div className="mb-6 flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">
           Academic Credentials
@@ -258,6 +259,6 @@ export default function CredentialsPage() {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </PageContainer>
   );
 }

@@ -27,12 +27,12 @@ import { TokenBalance } from "@/components/token-balance";
 
 export default function Dashboard() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b bg-card px-4 py-12 md:py-24">
+      <section className="relative overflow-hidden border-b bg-card w-full md:px-12">
         <div className="hero-glow left-1/4 top-1/4"></div>
         <div className="hero-glow right-1/4 bottom-1/4"></div>
-        <div className="container relative z-10 mx-auto max-w-5xl">
+        <div className="container mx-auto px-4 pb-20 pt-12 md:pb-24 max-w-full">
           <div className="grid gap-6 md:grid-cols-2 md:gap-12">
             <div className="flex flex-col justify-center space-y-4">
               <div className="inline-block rounded-full bg-secondary px-3 py-1 text-sm">
@@ -50,13 +50,13 @@ export default function Dashboard() {
               </p>
               <div className="flex flex-col gap-2 sm:flex-row">
                 <Button size="lg" asChild>
-                  <Link href="/credentials">
+                  <Link href="/my-credentials">
                     <Award className="mr-2 h-5 w-5" />
                     View Credentials
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link href="/wallet">
+                  <Link href="/my-wallet">
                     <Wallet className="mr-2 h-5 w-5" />
                     Connect Wallet
                   </Link>
@@ -70,8 +70,11 @@ export default function Dashboard() {
                   alt="NFT Credential"
                   className="h-full w-full rounded-lg object-cover shadow-xl gradient-border"
                 />
-                <div className="absolute -bottom-4 -right-4 rounded-lg bg-card p-3 shadow-lg gradient-border">
-                  <Shield className="h-8 w-8 text-primary" />
+                <div className="absolute -bottom-4 rounded-lg bg-card p-3 shadow-lg gradient-border">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-8 w-8 text-primary" />
+                    <span>All in one campus ecosystem</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -80,8 +83,8 @@ export default function Dashboard() {
       </section>
 
       {/* Dashboard Content */}
-      <div className="container mx-auto py-6">
-        <div className="grid gap-6 md:grid-cols-3">
+      <div className="container mx-auto px-4 py-6 max-w-full">
+        <div className="grid gap-4 md:gap-6 md:grid-cols-3">
           <StatCard
             title="Academic Credentials"
             value="5"
@@ -102,42 +105,162 @@ export default function Dashboard() {
           />
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 w-full">
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="w-full grid grid-cols-3">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="credentials">Credentials</TabsTrigger>
               <TabsTrigger value="activity">Recent Activity</TabsTrigger>
             </TabsList>
-            <TabsContent value="overview">
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Wallet Balance
-                    </CardTitle>
-                    <Wallet className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <TokenBalance />
-                  </CardContent>
-                </Card>
+            <div className="w-full overflow-hidden">
+              <TabsContent value="overview" className="mt-6 w-full">
+                <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
+                  <Card className="w-full">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        Wallet Balance
+                      </CardTitle>
+                      <Wallet className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                      <TokenBalance />
+                    </CardContent>
+                  </Card>
 
-                <Card className="md:col-span-2">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Token Activity
-                    </CardTitle>
-                    <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent className="h-[200px] flex items-center justify-center">
-                    <p className="text-sm text-muted-foreground">
-                      Token activity chart will appear here
-                    </p>
-                  </CardContent>
-                </Card>
+                  <Card className="w-full md:col-span-2">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        Token Activity
+                      </CardTitle>
+                      <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent className="h-[200px] flex items-center justify-center">
+                      <img
+                        src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?q=80&w=1000&auto=format&fit=crop"
+                        alt="Token Activity Chart"
+                        className="w-full h-full object-cover rounded-lg"
+                      />
+                    </CardContent>
+                  </Card>
 
-                <Card className="md:col-span-2">
+                  <Card className="w-full md:col-span-2">
+                    <CardHeader>
+                      <CardTitle>Recent Activity</CardTitle>
+                      <CardDescription>
+                        Your latest interactions on UniChain
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <RecentActivity />
+                    </CardContent>
+                  </Card>
+
+                  <Card className="w-full">
+                    <CardHeader>
+                      <CardTitle>Quick Actions</CardTitle>
+                      <CardDescription>
+                        Common tasks you can perform
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid gap-2">
+                      <Button variant="outline" className="justify-start">
+                        <Award className="mr-2 h-4 w-4" />
+                        View Diploma NFT
+                      </Button>
+                      <Button variant="outline" className="justify-start">
+                        <MessageSquare className="mr-2 h-4 w-4" />
+                        Join Support Group
+                      </Button>
+                      <Button variant="outline" className="justify-start">
+                        <MapPin className="mr-2 h-4 w-4" />
+                        Report Lost Item
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="credentials" className="mt-6 w-full">
+                <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
+                  <Card className="w-full gradient-border overflow-hidden">
+                    <CardHeader className="pb-0">
+                      <CardTitle>Diploma</CardTitle>
+                      <CardDescription>
+                        Bachelor of Science in Computer Science
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="aspect-[3/4] rounded-md overflow-hidden">
+                        <img
+                          src="https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?q=80&w=1000&auto=format&fit=crop"
+                          alt="Diploma NFT"
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex justify-between">
+                      <Button variant="outline" size="sm">
+                        <FileText className="mr-2 h-4 w-4" />
+                        View
+                      </Button>
+                      <Button size="sm">Share</Button>
+                    </CardFooter>
+                  </Card>
+
+                  <Card className="w-full gradient-border overflow-hidden">
+                    <CardHeader className="pb-0">
+                      <CardTitle>Transcript</CardTitle>
+                      <CardDescription>
+                        Academic Records 2023-2024
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="aspect-[3/4] rounded-md overflow-hidden">
+                        <img
+                          src="https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?q=80&w=1000&auto=format&fit=crop"
+                          alt="Transcript NFT"
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex justify-between">
+                      <Button variant="outline" size="sm">
+                        <FileText className="mr-2 h-4 w-4" />
+                        View
+                      </Button>
+                      <Button size="sm">Share</Button>
+                    </CardFooter>
+                  </Card>
+
+                  <Card className="w-full gradient-border overflow-hidden">
+                    <CardHeader className="pb-0">
+                      <CardTitle>Certificate</CardTitle>
+                      <CardDescription>
+                        Blockchain Development Course
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="aspect-[3/4] rounded-md overflow-hidden">
+                        <img
+                          src="https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?q=80&w=1000&auto=format&fit=crop"
+                          alt="Certificate NFT"
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex justify-between">
+                      <Button variant="outline" size="sm">
+                        <FileText className="mr-2 h-4 w-4" />
+                        View
+                      </Button>
+                      <Button size="sm">Share</Button>
+                    </CardFooter>
+                  </Card>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="activity" className="mt-6 w-full">
+                <Card className="w-full">
                   <CardHeader>
                     <CardTitle>Recent Activity</CardTitle>
                     <CardDescription>
@@ -145,127 +268,11 @@ export default function Dashboard() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <RecentActivity />
+                    <RecentActivity extended={true} />
                   </CardContent>
                 </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Quick Actions</CardTitle>
-                    <CardDescription>
-                      Common tasks you can perform
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="grid gap-2">
-                    <Button variant="outline" className="justify-start">
-                      <Award className="mr-2 h-4 w-4" />
-                      View Diploma NFT
-                    </Button>
-                    <Button variant="outline" className="justify-start">
-                      <MessageSquare className="mr-2 h-4 w-4" />
-                      Join Support Group
-                    </Button>
-                    <Button variant="outline" className="justify-start">
-                      <MapPin className="mr-2 h-4 w-4" />
-                      Report Lost Item
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="credentials">
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card className="gradient-border overflow-hidden">
-                  <CardHeader className="pb-0">
-                    <CardTitle>Diploma</CardTitle>
-                    <CardDescription>
-                      Bachelor of Science in Computer Science
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-6">
-                    <div className="aspect-[3/4] rounded-md overflow-hidden">
-                      <img
-                        src="/placeholder.svg?height=300&width=225"
-                        alt="Diploma NFT"
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                  </CardContent>
-                  <CardFooter className="flex justify-between">
-                    <Button variant="outline" size="sm">
-                      <FileText className="mr-2 h-4 w-4" />
-                      View
-                    </Button>
-                    <Button size="sm">Share</Button>
-                  </CardFooter>
-                </Card>
-
-                <Card className="gradient-border overflow-hidden">
-                  <CardHeader className="pb-0">
-                    <CardTitle>Transcript</CardTitle>
-                    <CardDescription>
-                      Academic Records 2023-2024
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-6">
-                    <div className="aspect-[3/4] rounded-md overflow-hidden">
-                      <img
-                        src="/placeholder.svg?height=300&width=225"
-                        alt="Transcript NFT"
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                  </CardContent>
-                  <CardFooter className="flex justify-between">
-                    <Button variant="outline" size="sm">
-                      <FileText className="mr-2 h-4 w-4" />
-                      View
-                    </Button>
-                    <Button size="sm">Share</Button>
-                  </CardFooter>
-                </Card>
-
-                <Card className="gradient-border overflow-hidden">
-                  <CardHeader className="pb-0">
-                    <CardTitle>Certificate</CardTitle>
-                    <CardDescription>
-                      Blockchain Development Course
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-6">
-                    <div className="aspect-[3/4] rounded-md overflow-hidden">
-                      <img
-                        src="/placeholder.svg?height=300&width=225"
-                        alt="Certificate NFT"
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                  </CardContent>
-                  <CardFooter className="flex justify-between">
-                    <Button variant="outline" size="sm">
-                      <FileText className="mr-2 h-4 w-4" />
-                      View
-                    </Button>
-                    <Button size="sm">Share</Button>
-                  </CardFooter>
-                </Card>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="activity">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Recent Activity</CardTitle>
-                  <CardDescription>
-                    Your latest interactions on UniChain
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <RecentActivity extended={true} />
-                </CardContent>
-              </Card>
-            </TabsContent>
+              </TabsContent>
+            </div>
           </Tabs>
         </div>
 
@@ -279,7 +286,7 @@ export default function Dashboard() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            <Card className="overflow-hidden">
+            <Card className="w-full overflow-hidden">
               <div className="h-2 bg-gradient-to-r from-purple-500 to-pink-500"></div>
               <CardHeader>
                 <Award className="h-8 w-8 text-primary mb-2" />
@@ -311,7 +318,7 @@ export default function Dashboard() {
               </CardFooter>
             </Card>
 
-            <Card className="overflow-hidden">
+            <Card className="w-full overflow-hidden">
               <div className="h-2 bg-gradient-to-r from-pink-500 to-purple-500"></div>
               <CardHeader>
                 <Brain className="h-8 w-8 text-primary mb-2" />
@@ -343,7 +350,7 @@ export default function Dashboard() {
               </CardFooter>
             </Card>
 
-            <Card className="overflow-hidden">
+            <Card className="w-full overflow-hidden">
               <div className="h-2 bg-gradient-to-r from-purple-500 to-pink-500"></div>
               <CardHeader>
                 <MapPin className="h-8 w-8 text-primary mb-2" />

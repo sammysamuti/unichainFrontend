@@ -73,22 +73,22 @@ export function RecentActivity({ extended = false }: RecentActivityProps) {
   const displayActivities = extended ? activities : activities.slice(0, 4);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full min-w-0">
       {displayActivities.map((activity) => (
-        <div key={activity.id} className="flex items-start gap-4">
+        <div key={activity.id} className="flex items-start gap-4 min-w-0">
           <div
             className={`${activity.iconBg} flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white`}
           >
             {activity.icon}
           </div>
-          <div className="flex-1 space-y-1">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-medium">{activity.title}</p>
-              <span className="text-xs text-muted-foreground">
+          <div className="flex-1 space-y-1 min-w-0">
+            <div className="flex items-center justify-between gap-4">
+              <p className="text-sm font-medium truncate">{activity.title}</p>
+              <span className="text-xs text-muted-foreground whitespace-nowrap">
                 {activity.time}
               </span>
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground truncate">
               {activity.description}
             </p>
           </div>

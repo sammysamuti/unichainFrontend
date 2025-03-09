@@ -18,10 +18,11 @@ import {
   Search,
   Tag,
 } from "lucide-react";
+import { PageContainer } from "@/components/page-container";
 
 export default function FoundItemsPage() {
   return (
-    <div className="container mx-auto py-6">
+    <PageContainer>
       <div className="mb-6 flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">Found Items</h1>
         <p className="text-muted-foreground">
@@ -54,7 +55,7 @@ export default function FoundItemsPage() {
             <Card>
               <div className="aspect-video w-full overflow-hidden">
                 <img
-                  src="/placeholder.svg?height=200&width=300&text=Student+ID"
+                  src="https://images.unsplash.com/photo-1609743522653-52354461eb27?w=800&auto=format&fit=crop&q=60"
                   alt="Student ID Card"
                   className="h-full w-full object-cover"
                 />
@@ -95,7 +96,7 @@ export default function FoundItemsPage() {
             <Card>
               <div className="aspect-video w-full overflow-hidden">
                 <img
-                  src="/placeholder.svg?height=200&width=300&text=Laptop"
+                  src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&auto=format&fit=crop&q=60"
                   alt="Laptop"
                   className="h-full w-full object-cover"
                 />
@@ -136,7 +137,7 @@ export default function FoundItemsPage() {
             <Card>
               <div className="aspect-video w-full overflow-hidden">
                 <img
-                  src="/placeholder.svg?height=200&width=300&text=Textbook"
+                  src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&auto=format&fit=crop&q=60"
                   alt="Textbook"
                   className="h-full w-full object-cover"
                 />
@@ -175,14 +176,13 @@ export default function FoundItemsPage() {
           </div>
         </TabsContent>
 
-        {/* Other tabs would have similar content structure */}
         <TabsContent value="id" className="mt-6">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {/* Student ID Card */}
             <Card>
               <div className="aspect-video w-full overflow-hidden">
                 <img
-                  src="/placeholder.svg?height=200&width=300&text=Student+ID"
+                  src="https://images.unsplash.com/photo-1609743522653-52354461eb27?w=800&auto=format&fit=crop&q=60"
                   alt="Student ID Card"
                   className="h-full w-full object-cover"
                 />
@@ -223,7 +223,7 @@ export default function FoundItemsPage() {
             <Card>
               <div className="aspect-video w-full overflow-hidden">
                 <img
-                  src="/placeholder.svg?height=200&width=300&text=Laptop"
+                  src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&auto=format&fit=crop&q=60"
                   alt="Laptop"
                   className="h-full w-full object-cover"
                 />
@@ -264,7 +264,7 @@ export default function FoundItemsPage() {
             <Card>
               <div className="aspect-video w-full overflow-hidden">
                 <img
-                  src="/placeholder.svg?height=200&width=300&text=Textbook"
+                  src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&auto=format&fit=crop&q=60"
                   alt="Textbook"
                   className="h-full w-full object-cover"
                 />
@@ -299,6 +299,6 @@ export default function FoundItemsPage() {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </PageContainer>
   );
 }

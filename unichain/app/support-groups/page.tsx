@@ -11,10 +11,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Brain, Lock, MessageSquare, Shield, Users } from "lucide-react";
+import { PageContainer } from "@/components/page-container";
 
 export default function SupportGroupsPage() {
+  const avatarImages = [
+    "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=800&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=800&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=800&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&auto=format&fit=crop&q=60",
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=60",
+  ];
+
   return (
-    <div className="container mx-auto py-6">
+    <PageContainer>
       <div className="mb-6 flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">
           Mental Health Support
@@ -52,11 +61,9 @@ export default function SupportGroupsPage() {
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex -space-x-2">
-                    {[1, 2, 3, 4, 5].map((i) => (
+                    {avatarImages.map((src, i) => (
                       <Avatar key={i} className="border-2 border-background">
-                        <AvatarImage
-                          src={`/placeholder.svg?height=32&width=32&text=${i}`}
-                        />
+                        <AvatarImage src={src} />
                         <AvatarFallback>A{i}</AvatarFallback>
                       </Avatar>
                     ))}
@@ -105,11 +112,9 @@ export default function SupportGroupsPage() {
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex -space-x-2">
-                    {[1, 2, 3, 4].map((i) => (
+                    {avatarImages.slice(0, 4).map((src, i) => (
                       <Avatar key={i} className="border-2 border-background">
-                        <AvatarImage
-                          src={`/placeholder.svg?height=32&width=32&text=${i}`}
-                        />
+                        <AvatarImage src={src} />
                         <AvatarFallback>A{i}</AvatarFallback>
                       </Avatar>
                     ))}
@@ -158,11 +163,9 @@ export default function SupportGroupsPage() {
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex -space-x-2">
-                    {[1, 2, 3, 4, 5].map((i) => (
+                    {avatarImages.map((src, i) => (
                       <Avatar key={i} className="border-2 border-background">
-                        <AvatarImage
-                          src={`/placeholder.svg?height=32&width=32&text=${i}`}
-                        />
+                        <AvatarImage src={src} />
                         <AvatarFallback>A{i}</AvatarFallback>
                       </Avatar>
                     ))}
@@ -406,6 +409,6 @@ export default function SupportGroupsPage() {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </PageContainer>
   );
 }

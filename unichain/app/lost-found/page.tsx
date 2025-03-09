@@ -11,10 +11,11 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Search, Plus, Filter, MapPin, Clock, ArrowUpDown } from "lucide-react";
+import { PageContainer } from "@/components/page-container";
 
 export default function LostFoundPage() {
   return (
-    <div className="space-y-6">
+    <PageContainer>
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Lost & Found</h1>
@@ -34,12 +35,12 @@ export default function LostFoundPage() {
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative mt-6">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input placeholder="Search for items..." className="w-full pl-9 pr-4" />
       </div>
 
-      <Tabs defaultValue="lost" className="w-full">
+      <Tabs defaultValue="lost" className="w-full mt-6">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="lost">Lost Items</TabsTrigger>
           <TabsTrigger value="found">Found Items</TabsTrigger>
@@ -62,43 +63,51 @@ export default function LostFoundPage() {
                 location: "Library",
                 time: "2 hours ago",
                 status: "lost",
+                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&auto=format&fit=crop&q=60",
               },
               {
                 name: "Student ID Card",
                 location: "Student Center",
                 time: "Yesterday",
                 status: "lost",
+                image: "https://images.unsplash.com/photo-1609743522653-52354461eb27?w=800&auto=format&fit=crop&q=60",
               },
               {
                 name: "Water Bottle",
                 location: "Gym",
                 time: "3 days ago",
                 status: "lost",
+                image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=800&auto=format&fit=crop&q=60",
               },
               {
                 name: "Laptop Charger",
                 location: "Engineering Building",
                 time: "1 week ago",
                 status: "lost",
+                image: "https://images.unsplash.com/photo-1588599376442-3cbf9c67449e?w=800&auto=format&fit=crop&q=60",
               },
               {
                 name: "Notebook",
                 location: "Science Lab",
                 time: "2 weeks ago",
                 status: "lost",
+                image: "https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=800&auto=format&fit=crop&q=60",
               },
               {
                 name: "Wireless Earbuds",
                 location: "Cafeteria",
                 time: "3 weeks ago",
                 status: "lost",
+                image: "https://images.unsplash.com/photo-1606220838315-056192d5e927?w=800&auto=format&fit=crop&q=60",
               },
             ].map((item, i) => (
               <Card key={i} className="overflow-hidden">
                 <div className="aspect-[4/3] bg-muted">
-                  <div className="flex h-full items-center justify-center bg-secondary/50 text-muted-foreground">
-                    Item image placeholder
-                  </div>
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
                 <CardHeader className="p-4">
                   <div className="flex items-start justify-between">
@@ -150,31 +159,37 @@ export default function LostFoundPage() {
                 location: "Math Building",
                 time: "1 hour ago",
                 status: "found",
+                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&auto=format&fit=crop&q=60",
               },
               {
                 name: "Umbrella",
                 location: "Bus Stop",
                 time: "Yesterday",
                 status: "found",
+                image: "https://images.unsplash.com/photo-1609743522653-52354461eb27?w=800&auto=format&fit=crop&q=60",
               },
               {
                 name: "House Keys",
                 location: "Cafeteria",
                 time: "2 days ago",
                 status: "found",
+                image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=800&auto=format&fit=crop&q=60",
               },
               {
                 name: "Textbook",
                 location: "Library",
                 time: "1 week ago",
                 status: "found",
+                image: "https://images.unsplash.com/photo-1588599376442-3cbf9c67449e?w=800&auto=format&fit=crop&q=60",
               },
             ].map((item, i) => (
               <Card key={i} className="overflow-hidden">
                 <div className="aspect-[4/3] bg-muted">
-                  <div className="flex h-full items-center justify-center bg-secondary/50 text-muted-foreground">
-                    Item image placeholder
-                  </div>
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
                 <CardHeader className="p-4">
                   <div className="flex items-start justify-between">
@@ -263,6 +278,6 @@ export default function LostFoundPage() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+    </PageContainer>
   );
 }
