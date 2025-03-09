@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import Loading from "@/app/loading";
+import Loading from "../app/loading";
 
 // Critical routes that need prefetching
 const CRITICAL_ROUTES = ['/calendar', '/my-wallet', '/anonymous-chat'];
@@ -20,7 +20,7 @@ export function RouteTemplate({ children }: RouteTemplateProps) {
     if (currentIndex !== -1 && currentIndex < CRITICAL_ROUTES.length - 1) {
       const nextRoute = CRITICAL_ROUTES[currentIndex + 1];
       // Use dynamic import to prefetch the next route
-      import(`@/app${nextRoute}/page`).catch(() => {
+      import(`../app${nextRoute}/page`).catch(() => {
         // Ignore errors, this is just prefetching
       });
     }
