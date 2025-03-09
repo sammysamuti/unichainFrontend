@@ -15,17 +15,13 @@ export function ClientSidebar() {
   const pathname = usePathname();
   const { setOpenMobile, isMobile, setOpen } = useSidebar();
 
-  // Set initial state and handle navigation
+ 
   useEffect(() => {
     if (isMobile) {
       setOpenMobile(false);
-    } else {
-      // Keep sidebar open on desktop
-      setOpen(true);
     }
   }, [isMobile, setOpen, setOpenMobile]);
 
-  // Handle mobile navigation
   useEffect(() => {
     if (isMobile) {
       setOpenMobile(false);
