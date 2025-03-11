@@ -1,3 +1,4 @@
+"use client"
 import {
   Card,
   CardContent,
@@ -19,8 +20,83 @@ import {
   FileText,
 } from "lucide-react";
 import { PageContainer } from "@/components/page-container";
+import { JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+
+const MOODS = [
+  '😊 Happy',
+  '😐 Neutral',
+  '😢 Sad',
+  '😡 Angry',
+  '😨 Anxious',
+  '😴 Tired',
+  '🤩 Excited'
+];
+
+const MOOD_SCORES = {
+  '😊 Happy': 4,
+  '😐 Neutral': 3,
+  '😢 Sad': 1,
+  '😡 Angry': 2,
+  '😨 Anxious': 2,
+  '😴 Tired': 3,
+  '🤩 Excited': 5
+};
+
+function getLatestMood(logs: any[]) {
+  if (!logs.length) return null;
+  const today = new Date().toLocaleDateString();
+  const todayLogs = logs.filter(log => 
+    new Date(log.timestamp).toLocaleDateString() === today
+  );
+  return todayLogs[0]?.mood || null;
+}
+
+function getMoodLabel(mood: string | number) {
+  if (!mood) return 'No Data';
+  const score = MOOD_SCORES[mood];
+  if (score >= 4) return 'Great';
+  if (score >= 3) return 'Good';
+  if (score >= 2) return 'Okay';
+  return 'Low';
+}
 
 export default function MentalHealthPage() {
+  const [selectedMood, setSelectedMood] = useState('');
+  const [notes, setNotes] = useState('');
+  const [logs, setLogs] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedLogs = localStorage.getItem('moodLogs');
+      return savedLogs ? JSON.parse(savedLogs) : [];
+    }
+    return [];
+  });
+  const [showHistory, setShowHistory] = useState(false);
+
+  const latestMood = getLatestMood(logs);
+  const moodLabel = getMoodLabel(latestMood);
+  const moodScore = latestMood ? MOOD_SCORES[latestMood] : 0;
+  const progressValue = (moodScore / 5) * 100;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedMood) return;
+
+    const newLog = {
+      mood: selectedMood,
+      notes,
+      timestamp: new Date().toLocaleString()
+    };
+
+    const updatedLogs = [newLog, ...logs];
+    setLogs(updatedLogs);
+    localStorage.setItem('moodLogs', JSON.stringify(updatedLogs));
+
+    setSelectedMood('');
+    setNotes('');
+  };
+
   return (
     <PageContainer>
       <div>
@@ -50,10 +126,10 @@ export default function MentalHealthPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">Good</div>
-                <Progress value={72} className="mt-2" />
+                <div className="text-2xl font-bold">{moodLabel}</div>
+                <Progress value={progressValue} className="mt-2" />
                 <p className="mt-2 text-xs text-muted-foreground">
-                  Your mood is 15% better than yesterday
+                  {latestMood ? `Your current mood: ${latestMood}` : 'No mood logged today'}
                 </p>
               </CardContent>
               <CardFooter>
@@ -142,7 +218,7 @@ export default function MentalHealthPage() {
                     className="flex items-center justify-between rounded-md p-2 hover:bg-accent"
                   >
                     <div className="flex items-center gap-3">
-                      <FileIcon className="h-10 w-10 rounded bg-primary/10 p-2" />
+                      <FileText className="h-10 w-10 rounded bg-primary/10 p-2" />
                       <div>
                         <div className="font-medium">
                           {topic} Guide {resource}
@@ -177,14 +253,73 @@ export default function MentalHealthPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-[300px] rounded-md border border-dashed p-6 text-center">
-                <div className="text-muted-foreground">
-                  Mood tracking chart visualization would appear here
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2 block">
+                    Select Mood
+                  </label>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    {MOODS.map(mood => (
+                      <Button
+                        type="button"
+                        variant={selectedMood === mood ? 'default' : 'outline'}
+                        key={mood}
+                        onClick={() => setSelectedMood(mood)}
+                        className="h-12"
+                      >
+                        {mood}
+                      </Button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+
+                <div>
+                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2 block">
+                    Notes
+                  </label>
+                  <Textarea
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    placeholder="Add any additional notes..."
+                  />
+                </div>
+
+                <Button type="submit" className="w-full">
+                  Save Mood Log
+                </Button>
+              </form>
+
+              {showHistory && (
+                <div className="mt-6 space-y-4">
+                  <h2 className="text-lg font-semibold">Mood History</h2>
+                  {logs.length > 0 ? (
+                    logs.map((log: { mood: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; timestamp: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; notes: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; }, index: Key | null | undefined) => (
+                      <Card key={index} className="p-4">
+                        <div className="flex items-center justify-between">
+                          <span className="text-lg">{log.mood}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {log.timestamp}
+                          </span>
+                        </div>
+                        {log.notes && (
+                          <p className="mt-2 text-sm text-muted-foreground">
+                            {log.notes}
+                          </p>
+                        )}
+                      </Card>
+                    ))
+                  ) : (
+                    <p className="text-sm text-muted-foreground">
+                      No mood logs yet. Start tracking your mood!
+                    </p>
+                  )}
+                </div>
+              )}
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline">View History</Button>
+              <Button variant="outline" onClick={() => setShowHistory(!showHistory)}>
+                {showHistory ? 'Hide History' : 'View History'}
+              </Button>
               <Button>Log Today's Mood</Button>
             </CardFooter>
           </Card>
