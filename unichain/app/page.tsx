@@ -24,7 +24,7 @@ import {
 import { StatCard } from "@/components/stat-card";
 import { RecentActivity } from "@/components/recent-activity";
 import { TokenBalance } from "@/components/token-balance";
-
+export const revalidate = false;
 export default function Dashboard() {
   return (
     <div className="flex flex-col w-full">
