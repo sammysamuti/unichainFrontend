@@ -134,14 +134,7 @@ export function AdminSidebar() {
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Node Status">
-                  <Link href="/admin/nodes">
-                    <Server className="h-4 w-4" />
-                    <span>Node Status</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
