@@ -38,10 +38,10 @@ export default function AdminUsersPage() {
             <Download className="h-4 w-4" />
             Export
           </Button>
-          <Button className="gap-2">
+          {/* <Button className="gap-2">
             <UserPlus className="h-4 w-4" />
             Add User
-          </Button>
+          </Button> */}
         </div>
       </div>
 
