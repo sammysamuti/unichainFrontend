@@ -14,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Brain, ExternalLink, Lock, MessageSquare, Shield, Users } from "lucide-react";
 import { PageContainer } from "@/components/page-container";
+import { Toaster, toast } from 'sonner';
 
 const supportGroups = [
   {
@@ -104,8 +105,14 @@ export default function SupportGroupsPage() {
     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=60",
   ];
 
+  const handleJoinGroup = (link: string) => {
+    window.open(link, '_blank', 'noopener,noreferrer');
+    toast.success('Opening Telegram group in a new tab');
+  };
+
   return (
     <PageContainer>
+      <Toaster />
       <div className="mb-6 flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">
           Mental Health Support
@@ -160,7 +167,7 @@ export default function SupportGroupsPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full" onClick={() => window.open(group.link, '_blank', 'noopener,noreferrer')}>
+                  <Button className="w-full" onClick={() => handleJoinGroup(group.link)}>
                     <ExternalLink className="mr-2 h-4 w-4" />
                     Join Telegram Group
                   </Button>

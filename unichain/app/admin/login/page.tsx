@@ -1,97 +1,76 @@
+'use client';
+
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import { Toaster, toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, FormEvent } from "react";
 
-export default function UniversityForm() {
+export default function AdminLogin() {
+  const router = useRouter();
   const [form, setForm] = useState({
-    name: "",
     email: "",
-    location: "",
     password: "",
   });
 
-  const { toast } = useToast();
-
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      const res = await fetch("/api/universities", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      if (res.ok) {
-        toast({ title: "Success", description: "University registered successfully." });
-        setForm({ name: "", email: "", location: "", password: "" });
-      } else {
-        const data = await res.json();
-        throw new Error(data.message || "Failed to register university.");
-      }
-    } catch (error) {
-      toast({ title: "Error", description: error.message });
+    // Check admin credentials as per memory
+    if (form.email === "admin@gmail.com" && form.password === "1234") {
+      // Set admin flag in localStorage
+      localStorage.setItem("isAdmin", "true");
+      toast.success("Admin login successful");
+      router.push("/admin"); // Redirect to admin route
+    } else {
+      toast.error("Invalid admin credentials");
     }
   };
 
   return (
-    <Card className="max-w-md mx-auto p-4 shadow-lg">
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="name">University Name</Label>
-            <Input
-              id="name"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <Label htmlFor="location">Location</Label>
-            <Input
-              id="location"
-              name="location"
-              value={form.location}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <Button type="submit" className="w-full">
-            Register
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+    <>
+      <Toaster />
+      <div className="flex min-h-screen items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardContent className="pt-6">
+            <h2 className="mb-6 text-2xl font-bold text-center">Admin Login</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <Button type="submit" className="w-full">
+                Login
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    </>
   );
 }
