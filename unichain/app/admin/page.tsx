@@ -1,3 +1,4 @@
+'use client'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
@@ -13,9 +14,38 @@ import {
   BarChart4,
   Activity,
   Shield,
+  Search,
 } from "lucide-react"
+import { useEffect, useState } from "react"
+import api from "@/lib/axios"
+
+interface Claim {
+  id: string;
+  title: string;
+  status: string;
+  createdAt: string;
+  studentName: string;
+}
 
 export default function AdminDashboardPage() {
+  const [claims, setClaims] = useState<Claim[]>([]);
+  const [claimsLoading, setClaimsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchClaims = async () => {
+      try {
+        const response = await api.get("api/claims");
+        setClaims(response.data || []);
+      } catch (err) {
+        console.error("Failed to fetch claims:", err);
+      } finally {
+        setClaimsLoading(false);
+      }
+    };
+
+    fetchClaims();
+  }, []);
+
   return (
     <div className="space-y-6">
       <div>
@@ -39,12 +69,14 @@ export default function AdminDashboardPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Active Courses</CardTitle>
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Active Claims</CardTitle>
+            <Search className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">187</div>
-            <p className="text-xs text-muted-foreground">+5% from last semester</p>
+            <div className="text-2xl font-bold">{claims.length}</div>
+            <p className="text-xs text-muted-foreground">
+              {claimsLoading ? "Loading..." : `${claims.filter(c => c.status === "PENDING").length} pending`}
+            </p>
             <div className="mt-4 h-1 w-full bg-muted">
               <div className="h-1 w-[65%] bg-primary"></div>
             </div>
@@ -81,9 +113,9 @@ export default function AdminDashboardPage() {
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="claims">Claims</TabsTrigger>
           <TabsTrigger value="analytics">Analytics</TabsTrigger>
           <TabsTrigger value="reports">Reports</TabsTrigger>
-          <TabsTrigger value="notifications">Notifications</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
@@ -199,133 +231,115 @@ export default function AdminDashboardPage() {
                       time: "1 day ago",
                     },
                   ].map((alert, i) => (
-                    <div key={i} className="flex gap-3 rounded-lg border p-3">
+                    <div
+                      key={i}
+                      className="flex items-start gap-4 rounded-lg border p-4"
+                    >
                       <div
-                        className={`mt-0.5 rounded-full p-1.5 ${
-                          alert.type === "info"
-                            ? "bg-blue-500/10 text-blue-500"
+                        className={`mt-0.5 rounded-full p-1 ${
+                          alert.type === "error"
+                            ? "bg-red-100 text-red-600"
                             : alert.type === "warning"
-                              ? "bg-yellow-500/10 text-yellow-500"
-                              : alert.type === "success"
-                                ? "bg-green-500/10 text-green-500"
-                                : "bg-red-500/10 text-red-500"
+                            ? "bg-yellow-100 text-yellow-600"
+                            : alert.type === "success"
+                            ? "bg-green-100 text-green-600"
+                            : "bg-blue-100 text-blue-600"
                         }`}
                       >
-                        {alert.type === "info" ? (
-                          <Activity className="h-4 w-4" />
+                        {alert.type === "error" ? (
+                          <AlertTriangle className="h-4 w-4" />
                         ) : alert.type === "warning" ? (
                           <AlertTriangle className="h-4 w-4" />
                         ) : alert.type === "success" ? (
                           <CheckCircle className="h-4 w-4" />
                         ) : (
-                          <Shield className="h-4 w-4" />
+                          <BarChart4 className="h-4 w-4" />
                         )}
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <div className="font-medium">{alert.title}</div>
-                        <div className="text-sm text-muted-foreground">{alert.description}</div>
-                        <div className="mt-1 text-xs text-muted-foreground">{alert.time}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {alert.description}
+                        </div>
+                        <div className="mt-1 text-xs text-muted-foreground">
+                          {alert.time}
+                        </div>
                       </div>
                     </div>
                   ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card className="col-span-2">
-              <CardHeader>
-                <CardTitle>User Growth</CardTitle>
-                <CardDescription>Monthly user registration trends</CardDescription>
-              </CardHeader>
-              <CardContent className="h-[300px]">
-                <div className="flex h-full items-center justify-center rounded-md border border-dashed">
-                  <div className="flex flex-col items-center text-center">
-                    <BarChart4 className="h-10 w-10 text-muted-foreground" />
-                    <h3 className="mt-4 text-lg font-medium">User Growth Chart</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      Monthly user registration data visualization would appear here
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Active Services</CardTitle>
-                <CardDescription>System service status</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {[
-                    { name: "Authentication", status: "Operational", uptime: "99.9%" },
-                    { name: "Database", status: "Operational", uptime: "99.8%" },
-                    { name: "Storage", status: "Operational", uptime: "100%" },
-                    { name: "Blockchain", status: "Operational", uptime: "99.7%" },
-                    { name: "API Gateway", status: "Operational", uptime: "99.9%" },
-                  ].map((service, i) => (
-                    <div key={i} className="flex items-center justify-between">
-                      <div className="text-sm">{service.name}</div>
-                      <div className="flex items-center gap-2">
-                        <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        <div className="text-xs text-muted-foreground">{service.uptime}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
-                <CardDescription>Common administrative tasks</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <Button variant="outline" className="w-full justify-start">
-                    <Users className="mr-2 h-4 w-4" />
-                    Manage Users
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <BookOpen className="mr-2 h-4 w-4" />
-                    Course Management
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Wallet className="mr-2 h-4 w-4" />
-                    Token Distribution
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Shield className="mr-2 h-4 w-4" />
-                    Security Settings
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Activity className="mr-2 h-4 w-4" />
-                    System Logs
-                  </Button>
                 </div>
               </CardContent>
             </Card>
           </div>
         </TabsContent>
 
+        <TabsContent value="claims" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Claims Management</CardTitle>
+              <CardDescription>Review and manage lost item claims</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {claimsLoading ? (
+                  <div className="text-center text-muted-foreground">Loading claims...</div>
+                ) : claims.length === 0 ? (
+                  <div className="text-center text-muted-foreground">No claims found</div>
+                ) : (
+                  claims.map((claim, i) => (
+                    <div key={i} className="flex items-center justify-between rounded-lg border p-4">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-9 w-9">
+                          <AvatarFallback>
+                            {claim.studentName
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium">{claim.title}</div>
+                          <div className="text-sm text-muted-foreground">
+                            By {claim.studentName}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge
+                          variant={
+                            claim.status === "PENDING"
+                              ? "default"
+                              : claim.status === "APPROVED"
+                              ? "secondary"
+                              : "outline"
+                          }
+                        >
+                          {claim.status}
+                        </Badge>
+                        <div className="text-sm text-muted-foreground">
+                          {new Date(claim.createdAt).toLocaleDateString()}
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+                <div className="mt-4 flex justify-center">
+                  <Button variant="outline">View All Claims</Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         <TabsContent value="analytics" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Platform Analytics</CardTitle>
-              <CardDescription>Detailed usage statistics and metrics</CardDescription>
+              <CardTitle>Analytics Overview</CardTitle>
+              <CardDescription>System performance and usage statistics</CardDescription>
             </CardHeader>
-            <CardContent className="h-[400px]">
-              <div className="flex h-full items-center justify-center rounded-md border border-dashed">
-                <div className="flex flex-col items-center text-center">
-                  <BarChart4 className="h-10 w-10 text-muted-foreground" />
-                  <h3 className="mt-4 text-lg font-medium">Analytics Dashboard</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Comprehensive analytics dashboard would appear here
-                  </p>
-                </div>
+            <CardContent>
+              <div className="text-center text-muted-foreground">
+                Analytics content coming soon
               </div>
             </CardContent>
           </Card>
@@ -335,57 +349,16 @@ export default function AdminDashboardPage() {
           <Card>
             <CardHeader>
               <CardTitle>System Reports</CardTitle>
-              <CardDescription>Generated reports and system analytics</CardDescription>
-            </CardHeader>
-            <CardContent className="h-[400px]">
-              <div className="flex h-full items-center justify-center rounded-md border border-dashed">
-                <div className="flex flex-col items-center text-center">
-                  <BarChart4 className="h-10 w-10 text-muted-foreground" />
-                  <h3 className="mt-4 text-lg font-medium">Reports Dashboard</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    System reports and downloadable analytics would appear here
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="notifications" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>System Notifications</CardTitle>
-              <CardDescription>Manage and send system-wide notifications</CardDescription>
+              <CardDescription>Generate and view system reports</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="rounded-lg border p-4">
-                  <h3 className="text-sm font-medium">Send New Notification</h3>
-                  <p className="text-sm text-muted-foreground">Create and send notifications to users</p>
-                  <Button className="mt-2">Compose Notification</Button>
-                </div>
-
-                <div className="rounded-lg border p-4">
-                  <h3 className="text-sm font-medium">Notification Templates</h3>
-                  <p className="text-sm text-muted-foreground">Manage reusable notification templates</p>
-                  <Button variant="outline" className="mt-2">
-                    Manage Templates
-                  </Button>
-                </div>
-
-                <div className="rounded-lg border p-4">
-                  <h3 className="text-sm font-medium">Notification History</h3>
-                  <p className="text-sm text-muted-foreground">View previously sent notifications</p>
-                  <Button variant="outline" className="mt-2">
-                    View History
-                  </Button>
-                </div>
+              <div className="text-center text-muted-foreground">
+                Reports content coming soon
               </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
-

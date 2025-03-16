@@ -29,7 +29,7 @@ import Link from "next/link"
 
 export function AppSidebar() {
   return (
-    <Sidebar className="border-r" defaultOpen={true} collapsible="icon">
+    <Sidebar className="border-r"  variant="floating" collapsible="icon">
       <SidebarHeader className="flex h-14 items-center px-4">
         <div className="flex items-center gap-2 text-xl font-bold">
           <Sparkles className="h-6 w-6 text-primary" />
@@ -43,7 +43,7 @@ export function AppSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild tooltip="Home">
-                  <Link href="/">
+                  <Link href="/admin">
                     <Home className="h-4 w-4" />
                     <span>Home</span>
                   </Link>

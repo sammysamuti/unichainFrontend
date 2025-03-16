@@ -16,6 +16,7 @@ import { preloadComponents } from "./preload";
 import "./globals.css";
 import { usePathname } from "next/navigation";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 if (typeof window !== "undefined") {
@@ -24,7 +25,6 @@ if (typeof window !== "undefined") {
 
 export const dynamic = "force-dynamic";
 
-
 export default function RootLayout({
   children,
 }: {
@@ -32,11 +32,9 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  // Check if the current page is an authentication page
   const isAuthPage = pathname === "/login" || pathname === "/signup";
-
-  // Check if the user is in the admin panel
   const isAdmin = pathname.startsWith("/admin");
+  const isHome = pathname === "/"; 
 
   if (isAuthPage) {
     return (
@@ -60,23 +58,35 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SidebarProvider defaultOpen={false}>
-            <div className="flex min-h-screen w-full flex-col md:flex-row bg-background">
-              <Suspense fallback={<Loading />}>
-                {isAdmin ? <AdminSidebar /> : <ClientSidebar />}
-              </Suspense>
-              <div className="flex-1 flex flex-col min-w-0 relative">
-                <div className="sticky top-0 z-50 w-full">
-                  <Suspense fallback={<Loading />}>
-                    {isAdmin ? <AdminTopNav /> : <ClientTopNav />}
-                  </Suspense>
-                </div>
-                <main className="flex-1 overflow-y-auto">
-                  <div className="h-full w-full">
-                    <RouteTemplate>{children}</RouteTemplate>
+            {isHome ? ( 
+              children
+            ) : (
+              <div className="flex min-h-screen w-full flex-col md:flex-row bg-background">
+                <Suspense fallback={<Loading />}>
+                  {isAdmin ? (
+                    <AdminSidebar />
+                  ) : (
+                    <ClientSidebar />
+                  )}
+                </Suspense>
+                <div className="flex-1 flex flex-col min-w-0 relative">
+                  <div className="sticky top-0 z-50 w-full">
+                    <Suspense fallback={<Loading />}>
+                      {isAdmin ? (
+                        <AdminTopNav />
+                      ) : (
+                        <ClientTopNav />
+                      )}
+                    </Suspense>
                   </div>
-                </main>
+                  <main className="flex-1 overflow-y-auto">
+                    <div className="h-full w-full">
+                      <RouteTemplate>{children}</RouteTemplate>
+                    </div>
+                  </main>
+                </div>
               </div>
-            </div>
+            )}
             <Toaster />
           </SidebarProvider>
         </ThemeProvider>

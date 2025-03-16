@@ -1,389 +1,372 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Award,
-  Brain,
-  FileText,
-  Search,
-  Wallet,
-  Users,
-  MessageSquare,
-  MapPin,
-  TrendingUp,
-  Shield,
-} from "lucide-react";
-import { StatCard } from "@/components/stat-card";
-import { RecentActivity } from "@/components/recent-activity";
-import { TokenBalance } from "@/components/token-balance";
-export const revalidate = false;
-export default function Dashboard() {
+import { Badge } from "@/components/ui/badge";
+import { Briefcase, Brain, Search, ArrowRight, GraduationCap, Shield, Users, MapPin, Link } from "lucide-react";
+import { ModeToggle } from "@/components/mode-toggle";
+
+export default function Home() {
   return (
-    <div className="flex flex-col w-full">
+<div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center w-full px-4">
+{/* Navigation */}
+      <header className="w-full">
+        <div className="container mx-auto py-4 px-4 md:px-6 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Shield className="h-8 w-8 text-primary" />
+            <span className="font-bold text-xl">UniChain</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-6">
+              <a href="#features" className="text-sm font-medium hover:text-primary transition-colors">
+                Features
+              </a>
+              <a href="#how-it-works" className="text-sm font-medium hover:text-primary transition-colors">
+                How It Works
+              </a>
+              <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">
+                About
+              </a>
+            </nav>
+            <ModeToggle />
+            <Button>Get Started</Button>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b bg-card w-full md:px-12">
-        <div className="hero-glow left-1/4 top-1/4"></div>
-        <div className="hero-glow right-1/4 bottom-1/4"></div>
-        <div className="container mx-auto px-4 pb-20 pt-12 md:pb-24 max-w-full">
-          <div className="grid gap-6 md:grid-cols-2 md:gap-12">
-            <div className="flex flex-col justify-center space-y-4">
-              <div className="inline-block rounded-full bg-secondary px-3 py-1 text-sm">
-                <span className="mr-2 inline-block rounded-full bg-primary px-2 py-0.5 text-xs text-white">
-                  New
-                </span>
-                <span>Solana-powered campus ecosystem</span>
-              </div>
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-                <span className="gradient-text">UniChain</span> Campus Ecosystem
-              </h1>
-              <p className="text-muted-foreground md:text-xl">
-                Manage your academic credentials, access mental health support,
-                and find lost items - all in one decentralized platform.
-              </p>
-              <div className="flex flex-col gap-2 sm:flex-row">
-                <Button size="lg" asChild>
-                  <Link href="/my-credentials">
-                    <Award className="mr-2 h-5 w-5" />
-                    View Credentials
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link href="/my-wallet">
-                    <Wallet className="mr-2 h-5 w-5" />
-                    Connect Wallet
-                  </Link>
-                </Button>
-              </div>
+      <section className="w-full">
+        <div className="container mx-auto py-20 px-4 md:px-6 flex flex-col items-center text-center">
+          <Badge className="mb-4" variant="outline">
+            Solana-Powered dApp
+          </Badge>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">A Holistic Campus Ecosystem</h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mb-10">
+            UniChain integrates academic credential verification, mental health support, and campus lost & found into a
+            single Solana-based platform for Ethiopian university students.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button size="lg" className="gap-2">
+              Launch App <ArrowRight className="h-4 w-4" />
+            </Button>
+            <Button size="lg" variant="outline">
+              Learn More
+            </Button>
+          </div>
+
+          <div className="mt-16 relative w-full max-w-5xl mx-auto">
+            <div className="aspect-[16/9] rounded-xl overflow-hidden border bg-card shadow-xl">
+              <img
+                src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?auto=format&fit=crop&q=80&w=2000"
+                alt="UniChain Platform Preview"
+                className="w-full h-full object-cover"
+              />
             </div>
-            <div className="flex items-center justify-center">
-              <div className="relative h-[300px] w-[300px] animate-float">
-                <img
-                  src="/nft.png"
-                  alt="NFT Credential"
-                  className="h-full w-full rounded-lg object-cover shadow-xl gradient-border"
-                />
-                <div className="absolute -bottom-4 rounded-lg bg-card p-3 shadow-lg gradient-border">
-                  <div className="flex items-center gap-2">
-                    <Shield className="h-8 w-8 text-primary" />
-                    <span>All in one campus ecosystem</span>
-                  </div>
+            <div className="absolute -bottom-6 -right-6 -z-10 h-full w-full rounded-xl bg-gradient-to-br from-primary/20 to-primary/5"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="w-full">
+        <div className="container mx-auto py-24 px-4 md:px-6">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <Badge className="mb-4" variant="outline">
+              Features
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+              Three Powerful Solutions in One Platform
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              UniChain combines academic, mental health, and practical campus needs in a single decentralized application.
+            </p>
+          </div>
+
+          <Tabs defaultValue="educhain" className="w-full">
+            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-3 mb-12">
+              <TabsTrigger value="educhain">EduChain</TabsTrigger>
+              <TabsTrigger value="mental-health">Mental Health</TabsTrigger>
+              <TabsTrigger value="lost-found">Lost & Found</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="educhain" className="space-y-4">
+              <div className="container grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto px-4">
+                <div>
+                  <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <GraduationCap className="h-6 w-6 text-primary" />
+                    Decentralized Academic Credentials
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    Universities mint tamper-proof NFT credentials for students, ensuring academic integrity and easy
+                    verification by employers.
+                  </p>
+                  <ul className="space-y-3">
+                    {[
+                      "Secure NFT-based diplomas and transcripts",
+                      "Instant verification by employers",
+                      "Student-controlled privacy settings",
+                      "Tamper-proof academic records",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <ArrowRight className="h-3 w-3 text-primary" />
+                        </div>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+                <div className="relative">
+                  <div className="aspect-[4/3] rounded-xl overflow-hidden border bg-card shadow-lg">
+                    <img
+                      src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1200"
+                      alt="EduChain NFT Credential"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="absolute -bottom-4 -right-4 -z-10 h-full w-full rounded-xl bg-gradient-to-br from-primary/20 to-primary/5"></div>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="mental-health" className="space-y-4">
+              <div className="container grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto px-4">
+                <div>
+                  <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <Brain className="h-6 w-6 text-primary" />
+                    Community-Driven Mental Health Support
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    Students access anonymous peer support and earn tokens for contributing to the mental health
+                    community.
+                  </p>
+                  <ul className="space-y-3">
+                    {[
+                      "Anonymous peer support groups",
+                      "Token rewards for community contributions",
+                      "AI-assisted initial support",
+                      "Escalation to human volunteers when needed",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <ArrowRight className="h-3 w-3 text-primary" />
+                        </div>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="relative">
+                  <div className="aspect-[4/3] rounded-xl overflow-hidden border bg-card shadow-lg">
+                    <img
+                      src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1200"
+                      alt="Mental Health Support Interface"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="absolute -bottom-4 -right-4 -z-10 h-full w-full rounded-xl bg-gradient-to-br from-primary/20 to-primary/5"></div>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="lost-found" className="space-y-4">
+              <div className="container grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto px-4">
+                <div>
+                  <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <Search className="h-6 w-6 text-primary" />
+                    Campus Lost & Found Network
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    A system to report and recover lost items on campus with token incentives for finders.
+                  </p>
+                  <ul className="space-y-3">
+                    {[
+                      "Campus-specific lost item feeds",
+                      "Location-based geo-tagging",
+                      "Token rewards for returning items",
+                      "Secure, anonymous messaging",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <ArrowRight className="h-3 w-3 text-primary" />
+                        </div>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="relative">
+                  <div className="aspect-[4/3] rounded-xl overflow-hidden border bg-card shadow-lg">
+                    <img
+                      src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=1200"
+                      alt="Lost and Found Interface"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="absolute -bottom-4 -right-4 -z-10 h-full w-full rounded-xl bg-gradient-to-br from-primary/20 to-primary/5"></div>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section id="how-it-works" className="w-full bg-muted/50">
+        <div className="container mx-auto py-24 px-4 md:px-6">
+          <div className="text-center mb-16">
+            <Badge className="mb-4" variant="outline">
+              How It Works
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">The UniChain Ecosystem</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              See how our platform connects students, universities, and employers in a seamless blockchain experience.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-12">
+            {[
+              {
+                title: "University Onboarding",
+                icon: <Briefcase className="h-10 w-10 text-primary" />,
+                description:
+                  "Universities register on UniChain, add student profiles, and mint NFT diplomas with grades and photos.",
+              },
+              {
+                title: "Student Engagement",
+                icon: <Users className="h-10 w-10 text-primary" />,
+                description:
+                  "Students access their NFT credentials, join mental health groups, and earn tokens for helping peers.",
+              },
+              {
+                title: "Community Action",
+                icon: <MapPin className="h-10 w-10 text-primary" />,
+                description:
+                  "Students report lost items or post found ones, connecting through encrypted messaging for returns.",
+              },
+              {
+                title: "Verification",
+                icon: <Shield className="h-10 w-10 text-primary" />,
+                description: "Employers scan QR codes to instantly verify student credentials on the public portal.",
+              },
+            ].map((step, i) => (
+              <Card key={i} className="border bg-card">
+                <CardHeader>
+                  <div className="mb-4 h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center">
+                    {step.icon}
+                  </div>
+                  <CardTitle className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">
+                      {i + 1}
+                    </span>
+                    {step.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base">{step.description}</CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="w-full">
+        <div className="container mx-auto py-24 px-4 md:px-6">
+          <div className="rounded-2xl bg-gradient-to-br from-primary/90 to-primary p-8 md:p-12 shadow-lg text-primary-foreground">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+                  Ready to Transform Your Campus Experience?
+                </h2>
+                <p className="text-xl opacity-90 mb-8">
+                  Join UniChain today and be part of the decentralized revolution in Ethiopian universities.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link href="/login">
+                    <Button size="lg" variant="secondary" className="gap-2">
+                      Get Started <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
+                  >
+                    Contact Us
+                  </Button>
+                </div>
+              </div>
+              <div className="relative hidden md:block">
+                <div className="aspect-square rounded-xl overflow-hidden border shadow-xl">
+                  <img
+                    src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?auto=format&fit=crop&q=80"
+                    alt="UniChain Mobile App"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-6 -right-6 -z-10 h-full w-full rounded-xl bg-primary-foreground/10"></div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Dashboard Content */}
-      <div className="container mx-auto px-4 py-6 max-w-full">
-        <div className="grid gap-4 md:gap-6 md:grid-cols-3">
-          <StatCard
-            title="Academic Credentials"
-            value="5"
-            description="NFT credentials in your wallet"
-            icon={<Award className="h-4 w-4 text-primary" />}
-          />
-          <StatCard
-            title="Mental Health Points"
-            value="120"
-            description="UniTokens earned from participation"
-            icon={<Brain className="h-4 w-4 text-primary" />}
-          />
-          <StatCard
-            title="Lost & Found"
-            value="2"
-            description="Items successfully recovered"
-            icon={<Search className="h-4 w-4 text-primary" />}
-          />
-        </div>
-
-        <div className="mt-6 w-full">
-          <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="w-full grid grid-cols-3">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="credentials">Credentials</TabsTrigger>
-              <TabsTrigger value="activity">Recent Activity</TabsTrigger>
-            </TabsList>
-            <div className="w-full overflow-hidden">
-              <TabsContent value="overview" className="mt-6 w-full">
-                <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
-                  <Card className="w-full">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">
-                        Wallet Balance
-                      </CardTitle>
-                      <Wallet className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                      <TokenBalance />
-                    </CardContent>
-                  </Card>
-
-                  <Card className="w-full md:col-span-2">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">
-                        Token Activity
-                      </CardTitle>
-                      <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent className="h-[200px] flex items-center justify-center">
-                      <img
-                        src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?q=80&w=1000&auto=format&fit=crop"
-                        alt="Token Activity Chart"
-                        className="w-full h-full object-cover rounded-lg"
-                      />
-                    </CardContent>
-                  </Card>
-
-                  <Card className="w-full md:col-span-2">
-                    <CardHeader>
-                      <CardTitle>Recent Activity</CardTitle>
-                      <CardDescription>
-                        Your latest interactions on UniChain
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <RecentActivity />
-                    </CardContent>
-                  </Card>
-
-                  <Card className="w-full">
-                    <CardHeader>
-                      <CardTitle>Quick Actions</CardTitle>
-                      <CardDescription>
-                        Common tasks you can perform
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="grid gap-2">
-                      <Button variant="outline" className="justify-start">
-                        <Award className="mr-2 h-4 w-4" />
-                        View Diploma NFT
-                      </Button>
-                      <Button variant="outline" className="justify-start">
-                        <MessageSquare className="mr-2 h-4 w-4" />
-                        Join Support Group
-                      </Button>
-                      <Button variant="outline" className="justify-start">
-                        <MapPin className="mr-2 h-4 w-4" />
-                        Report Lost Item
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="credentials" className="mt-6 w-full">
-                <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
-                  <Card className="w-full gradient-border overflow-hidden">
-                    <CardHeader className="pb-0">
-                      <CardTitle>Diploma</CardTitle>
-                      <CardDescription>
-                        Bachelor of Science in Computer Science
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="p-6">
-                      <div className="aspect-[3/4] rounded-md overflow-hidden">
-                        <img
-                          src="https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?q=80&w=1000&auto=format&fit=crop"
-                          alt="Diploma NFT"
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-between">
-                      <Button variant="outline" size="sm">
-                        <FileText className="mr-2 h-4 w-4" />
-                        View
-                      </Button>
-                      <Button size="sm">Share</Button>
-                    </CardFooter>
-                  </Card>
-
-                  <Card className="w-full gradient-border overflow-hidden">
-                    <CardHeader className="pb-0">
-                      <CardTitle>Transcript</CardTitle>
-                      <CardDescription>
-                        Academic Records 2023-2024
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="p-6">
-                      <div className="aspect-[3/4] rounded-md overflow-hidden">
-                        <img
-                          src="https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?q=80&w=1000&auto=format&fit=crop"
-                          alt="Transcript NFT"
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-between">
-                      <Button variant="outline" size="sm">
-                        <FileText className="mr-2 h-4 w-4" />
-                        View
-                      </Button>
-                      <Button size="sm">Share</Button>
-                    </CardFooter>
-                  </Card>
-
-                  <Card className="w-full gradient-border overflow-hidden">
-                    <CardHeader className="pb-0">
-                      <CardTitle>Certificate</CardTitle>
-                      <CardDescription>
-                        Blockchain Development Course
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="p-6">
-                      <div className="aspect-[3/4] rounded-md overflow-hidden">
-                        <img
-                          src="https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?q=80&w=1000&auto=format&fit=crop"
-                          alt="Certificate NFT"
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-between">
-                      <Button variant="outline" size="sm">
-                        <FileText className="mr-2 h-4 w-4" />
-                        View
-                      </Button>
-                      <Button size="sm">Share</Button>
-                    </CardFooter>
-                  </Card>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="activity" className="mt-6 w-full">
-                <Card className="w-full">
-                  <CardHeader>
-                    <CardTitle>Recent Activity</CardTitle>
-                    <CardDescription>
-                      Your latest interactions on UniChain
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <RecentActivity extended={true} />
-                  </CardContent>
-                </Card>
-              </TabsContent>
+      {/* Footer */}
+      <footer className="w-full border-t">
+        <div className="container mx-auto px-4 md:px-6 py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+            <div className="col-span-2 md:col-span-1">
+              <div className="flex items-center gap-2 mb-4">
+                <Shield className="h-6 w-6 text-primary" />
+                <span className="font-bold text-lg">UniChain</span>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                A holistic Solana-based dApp for Ethiopian university students.
+              </p>
             </div>
-          </Tabs>
+
+            {[
+              {
+                title: "Product",
+                links: ["Features", "How It Works", "Pricing", "FAQ"],
+              },
+              {
+                title: "Resources",
+                links: ["Documentation", "API", "Privacy Policy", "Terms of Service"],
+              },
+              {
+                title: "Company",
+                links: ["About", "Blog", "Careers", "Contact"],
+              },
+            ].map((column, i) => (
+              <div key={i}>
+                <h3 className="font-medium mb-4">{column.title}</h3>
+                <ul className="space-y-2">
+                  {column.links.map((link, j) => (
+                    <li key={j}>
+                      <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-muted-foreground"> 2023 UniChain. All rights reserved.</p>
+            <div className="flex items-center gap-4">
+              {["Twitter", "GitHub", "LinkedIn", "Discord"].map((social, i) => (
+                <a key={i} href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  {social}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
-
-        {/* Features Section */}
-        <section className="mt-12">
-          <div className="mb-8 text-center">
-            <h2 className="text-3xl font-bold">Key Features</h2>
-            <p className="mt-2 text-muted-foreground">
-              Explore the three pillars of the UniChain ecosystem
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card className="w-full overflow-hidden">
-              <div className="h-2 bg-gradient-to-r from-purple-500 to-pink-500"></div>
-              <CardHeader>
-                <Award className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Academic Credentials</CardTitle>
-                <CardDescription>
-                  Secure, verifiable academic records as NFTs
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center">
-                    <span className="mr-2 h-1.5 w-1.5 rounded-full bg-primary"></span>
-                    Tamper-proof diplomas and certificates
-                  </li>
-                  <li className="flex items-center">
-                    <span className="mr-2 h-1.5 w-1.5 rounded-full bg-primary"></span>
-                    Instant verification by employers
-                  </li>
-                  <li className="flex items-center">
-                    <span className="mr-2 h-1.5 w-1.5 rounded-full bg-primary"></span>
-                    Selective sharing with privacy controls
-                  </li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full">
-                  Learn More
-                </Button>
-              </CardFooter>
-            </Card>
-
-            <Card className="w-full overflow-hidden">
-              <div className="h-2 bg-gradient-to-r from-pink-500 to-purple-500"></div>
-              <CardHeader>
-                <Brain className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Mental Health Support</CardTitle>
-                <CardDescription>
-                  Anonymous peer support with token incentives
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center">
-                    <span className="mr-2 h-1.5 w-1.5 rounded-full bg-primary"></span>
-                    Anonymous group chats and counseling
-                  </li>
-                  <li className="flex items-center">
-                    <span className="mr-2 h-1.5 w-1.5 rounded-full bg-primary"></span>
-                    Earn tokens for positive contributions
-                  </li>
-                  <li className="flex items-center">
-                    <span className="mr-2 h-1.5 w-1.5 rounded-full bg-primary"></span>
-                    AI-assisted initial support and resources
-                  </li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full">
-                  Learn More
-                </Button>
-              </CardFooter>
-            </Card>
-
-            <Card className="w-full overflow-hidden">
-              <div className="h-2 bg-gradient-to-r from-purple-500 to-pink-500"></div>
-              <CardHeader>
-                <MapPin className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Lost & Found Network</CardTitle>
-                <CardDescription>
-                  Campus-wide system for recovering lost items
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center">
-                    <span className="mr-2 h-1.5 w-1.5 rounded-full bg-primary"></span>
-                    Report lost items with photos and details
-                  </li>
-                  <li className="flex items-center">
-                    <span className="mr-2 h-1.5 w-1.5 rounded-full bg-primary"></span>
-                    Geo-tagging for location-based searches
-                  </li>
-                  <li className="flex items-center">
-                    <span className="mr-2 h-1.5 w-1.5 rounded-full bg-primary"></span>
-                    Token rewards for returning found items
-                  </li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full">
-                  Learn More
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
-        </section>
-      </div>
+      </footer>
     </div>
   );
 }

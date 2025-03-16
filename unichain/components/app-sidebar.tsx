@@ -70,7 +70,7 @@ export function AppSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild tooltip="Overview">
-                  <Link href="/">
+                  <Link href="/user">
                     <Home className="h-4 w-4" />
                     <span>Overview</span>
                   </Link>

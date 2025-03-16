@@ -21,7 +21,7 @@ export function TopNav() {
       <div className="flex h-16 items-center px-4">
         <SidebarTrigger className="mr-2" />
         <div className="flex items-center">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/admin" className="flex items-center gap-2">
             <span className="text-xl md:text-2xl font-bold gradient-text">
               UniChain
             </span>
