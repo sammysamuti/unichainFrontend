@@ -28,7 +28,6 @@ interface NewClaimForm {
 export default function NewClaimPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [formData, setFormData] = useState<NewClaimForm>({
     title: "",
     description: "",
@@ -54,7 +53,6 @@ export default function NewClaimPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
 
     try {
@@ -65,13 +63,13 @@ export default function NewClaimPage() {
       }
 
       // First create a lost item
-      const lostItemResponse = await api.post("api/lost-items", {
+      const lostItemResponse = await api.post("/api/auth/lost-items", {
         ...formData,
         ownerId: userId,
       });
 
       // Then create a claim for the lost item
-      await api.post("api/claims", {
+      await api.post("/api/auth/claims", {
         lostItemId: lostItemResponse.data.id,
         studentId: userId,
         message: formData.message,
@@ -79,8 +77,9 @@ export default function NewClaimPage() {
       });
 
       router.push("/user/claims");
-    } catch (err: any) {
-      setError(err.response?.data?.error || "Failed to submit claim");
+    } catch (err) {
+      console.error("Failed to submit claim:", err);
+      // Don't show error message, just keep the form in editable state
     } finally {
       setLoading(false);
     }
@@ -97,9 +96,6 @@ export default function NewClaimPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {error && (
-              <div className="text-red-500 text-sm text-center">{error}</div>
-            )}
 
             <div className="space-y-2">
               <Label htmlFor="title">Title</Label>
