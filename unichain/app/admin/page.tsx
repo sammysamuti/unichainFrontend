@@ -34,10 +34,11 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     const fetchClaims = async () => {
       try {
-        const response = await api.get("api/claims");
+        const response = await api.get("/api/auth/claims");
         setClaims(response.data || []);
       } catch (err) {
         console.error("Failed to fetch claims:", err);
+        setClaims([]);
       } finally {
         setClaimsLoading(false);
       }

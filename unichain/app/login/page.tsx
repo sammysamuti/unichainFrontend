@@ -16,6 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/axios";
+import { toast, Toaster } from "sonner";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -39,21 +40,25 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // Checks for admin credentials
+      // Check for admin credentials first
       if (formData.email === "admin@gmail.com" && formData.password === "1234") {
         localStorage.setItem("isAdmin", "true");
+        toast.success("Admin login successful");
         router.push("/admin");
         return;
       }
 
+      // Regular user authentication
       const response = await api.post("api/auth/login", formData);
       const data = response.data;
 
-      // Store the ID in localStorage
       localStorage.setItem("userId", data.id.toString());
+      localStorage.setItem("isAdmin", "false"); // Ensure admin flag is false for regular users
+      toast.success("Login successful");
       router.push("/user");
     } catch (err: any) {
       setError(err.response?.data?.error || "Invalid email or password");
+      toast.error(error);
     } finally {
       setLoading(false);
     }
@@ -61,6 +66,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
+      <Toaster />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-background to-background"></div>
 
       <div className="mb-8 flex items-center gap-2 text-2xl font-bold">

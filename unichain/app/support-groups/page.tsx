@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,8 +12,89 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Brain, Lock, MessageSquare, Shield, Users } from "lucide-react";
+import { Brain, ExternalLink, Lock, MessageSquare, Shield, Users } from "lucide-react";
 import { PageContainer } from "@/components/page-container";
+import { Toaster, toast } from 'sonner';
+
+const supportGroups = [
+  {
+    title: "Mental Health Addis Support Group",
+    description: "Join our community dedicated to mental well-being. We promote monthly mental health talks at ADORE Addis Hotel, fostering open discussions and support.",
+    members: 500,
+    link: "https://t.me/mentaladdis",
+    gradient: "from-purple-500 to-pink-500"
+  },
+  {
+    title: "የአዕምሮ ጤና - Mental Health Support Group",
+    description: "Join our Telegram community of over 9,000 members dedicated to mental well-being. Engage in open discussions, share experiences, and access resources.",
+    members: 9000,
+    link: "https://t.me/MentalHealth06",
+    gradient: "from-pink-500 to-purple-500"
+  },
+  {
+    title: "Amanuel Mental Specialized Hospital Laboratory",
+    description: "Connect with AMSHL's Telegram community. Engage in discussions and access resources focused on advancing mental health solutions.",
+    members: 172,
+    link: "https://t.me/AMSHL47",
+    gradient: "from-purple-500 to-pink-500"
+  },
+  {
+    title: "Dr. Estifanos (MD, Psychiatrist)",
+    description: "Join Dr. Estifanos's Telegram channel for professional insights and discussions about mental health.",
+    members: 2200,
+    link: "https://t.me/DrEstif",
+    gradient: "from-pink-500 to-purple-500"
+  },
+  {
+    title: "LSSYA | ሊስያ™",
+    description: "Online psychological counseling platform connecting you with professionals. Web app coming soon.",
+    members: 1700,
+    link: "https://t.me/LSSYAOfficial",
+    gradient: "from-purple-500 to-pink-500"
+  },
+  {
+    title: "Lebeza Psychiatry Specialty Clinic",
+    description: "Access information about our clinic near Urael Church. Contact: 0966-11-11-11",
+    members: 1700,
+    link: "https://t.me/lebezapsychiatryspecialityclinic",
+    gradient: "from-pink-500 to-purple-500"
+  },
+  {
+    title: "HERE4U – Youth Mental Health Support",
+    description: "Supporting youths aged 15-27 dealing with feelings of sadness, loneliness, or depression. Access to professional psychologists.",
+    members: 400,
+    link: "https://t.me/Here4uETH",
+    gradient: "from-purple-500 to-pink-500"
+  },
+  {
+    title: "Ethio Psychiatry",
+    description: "Mental health awareness and support. No Health Without Mental Health! Contact: +251949114685",
+    members: 5600,
+    link: "https://t.me/ethiopsychiatry",
+    gradient: "from-pink-500 to-purple-500"
+  }
+];
+
+const resources = [
+  {
+    title: "Mental Health Articles",
+    description: "Curated articles and research papers on mental health topics",
+    link: "https://www.who.int/health-topics/mental-health",
+    icon: Brain
+  },
+  {
+    title: "Self-Help Resources",
+    description: "Guides and tools for managing mental health",
+    link: "https://www.nimh.nih.gov/health/topics/mental-health",
+    icon: Brain
+  },
+  {
+    title: "Crisis Helplines",
+    description: "24/7 emergency mental health support contacts",
+    link: "https://www.befrienders.org/",
+    icon: Shield
+  }
+];
 
 export default function SupportGroupsPage() {
   const avatarImages = [
@@ -22,15 +105,20 @@ export default function SupportGroupsPage() {
     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=60",
   ];
 
+  const handleJoinGroup = (link: string) => {
+    window.open(link, '_blank', 'noopener,noreferrer');
+    toast.success('Opening Telegram group in a new tab');
+  };
+
   return (
     <PageContainer>
+      <Toaster />
       <div className="mb-6 flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">
           Mental Health Support
         </h1>
         <p className="text-muted-foreground">
-          Join anonymous support groups and earn tokens for positive
-          contributions
+          Join support groups and connect with mental health professionals
         </p>
       </div>
 
@@ -43,158 +131,49 @@ export default function SupportGroupsPage() {
 
         <TabsContent value="groups" className="mt-6">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* Stress Management Group */}
-            <Card className="overflow-hidden">
-              <div className="h-2 bg-gradient-to-r from-purple-500 to-pink-500"></div>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>Stress Management</CardTitle>
-                  <Badge variant="outline" className="flex items-center gap-1">
-                    <Users className="h-3 w-3" />
-                    <span>24 members</span>
-                  </Badge>
-                </div>
-                <CardDescription>
-                  Techniques and support for managing academic stress
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex -space-x-2">
-                    {avatarImages.map((src, i) => (
-                      <Avatar key={i} className="border-2 border-background">
-                        <AvatarImage src={src} />
-                        <AvatarFallback>A{i}</AvatarFallback>
-                      </Avatar>
-                    ))}
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-xs">
-                      +19
+            {supportGroups.map((group, index) => (
+              <Card key={index} className="overflow-hidden">
+                <div className={`h-2 bg-gradient-to-r ${group.gradient}`}></div>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>{group.title}</CardTitle>
+                    <Badge variant="outline" className="flex items-center gap-1">
+                      <Users className="h-3 w-3" />
+                      <span>{group.members.toLocaleString()} members</span>
+                    </Badge>
+                  </div>
+                  <CardDescription>
+                    {group.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex -space-x-2">
+                      {avatarImages.map((src, i) => (
+                        <Avatar key={i} className="border-2 border-background">
+                          <AvatarImage src={src} />
+                          <AvatarFallback>A{i}</AvatarFallback>
+                        </Avatar>
+                      ))}
+                    </div>
+                    <div className="rounded-md bg-muted p-3">
+                      <div className="flex items-center gap-2">
+                        <Lock className="h-3 w-3 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">
+                          Telegram Community
+                        </span>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="rounded-md bg-muted p-3">
-                    <div className="flex items-center gap-2">
-                      <Lock className="h-3 w-3 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">
-                        Anonymous participation
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm">
-                      "This group helped me develop effective strategies for
-                      managing exam anxiety."
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full">
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  Join Group
-                </Button>
-              </CardFooter>
-            </Card>
-
-            {/* Depression Support Group */}
-            <Card className="overflow-hidden">
-              <div className="h-2 bg-gradient-to-r from-pink-500 to-purple-500"></div>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>Depression Support</CardTitle>
-                  <Badge variant="outline" className="flex items-center gap-1">
-                    <Users className="h-3 w-3" />
-                    <span>18 members</span>
-                  </Badge>
-                </div>
-                <CardDescription>
-                  Safe space for discussing and managing depression
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex -space-x-2">
-                    {avatarImages.slice(0, 4).map((src, i) => (
-                      <Avatar key={i} className="border-2 border-background">
-                        <AvatarImage src={src} />
-                        <AvatarFallback>A{i}</AvatarFallback>
-                      </Avatar>
-                    ))}
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-xs">
-                      +14
-                    </div>
-                  </div>
-
-                  <div className="rounded-md bg-muted p-3">
-                    <div className="flex items-center gap-2">
-                      <Shield className="h-3 w-3 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">
-                        Moderated by counselors
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm">
-                      "Finding others who understand what I'm going through has
-                      been life-changing."
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full">
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  Join Group
-                </Button>
-              </CardFooter>
-            </Card>
-
-            {/* Anxiety Support Group */}
-            <Card className="overflow-hidden">
-              <div className="h-2 bg-gradient-to-r from-purple-500 to-pink-500"></div>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>Anxiety Support</CardTitle>
-                  <Badge variant="outline" className="flex items-center gap-1">
-                    <Users className="h-3 w-3" />
-                    <span>21 members</span>
-                  </Badge>
-                </div>
-                <CardDescription>
-                  Coping strategies and support for anxiety
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex -space-x-2">
-                    {avatarImages.map((src, i) => (
-                      <Avatar key={i} className="border-2 border-background">
-                        <AvatarImage src={src} />
-                        <AvatarFallback>A{i}</AvatarFallback>
-                      </Avatar>
-                    ))}
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-xs">
-                      +16
-                    </div>
-                  </div>
-
-                  <div className="rounded-md bg-muted p-3">
-                    <div className="flex items-center gap-2">
-                      <Brain className="h-3 w-3 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">
-                        Earn tokens for participation
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm">
-                      "The breathing techniques shared here have helped me
-                      manage panic attacks."
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full">
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  Join Group
-                </Button>
-              </CardFooter>
-            </Card>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full" onClick={() => handleJoinGroup(group.link)}>
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    Join Telegram Group
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
           </div>
         </TabsContent>
 
@@ -202,207 +181,37 @@ export default function SupportGroupsPage() {
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>One-on-One Counseling</CardTitle>
+                <CardTitle>Professional Counseling</CardTitle>
                 <CardDescription>
-                  Schedule private sessions with licensed counselors
+                  Connect with licensed mental health professionals
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div className="rounded-md bg-muted p-4">
-                    <h3 className="font-medium">How it works</h3>
-                    <ul className="mt-2 space-y-2 text-sm">
-                      <li className="flex items-center gap-2">
-                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs text-white">
-                          1
-                        </div>
-                        <span>Request a session using your wallet address</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs text-white">
-                          2
-                        </div>
-                        <span>
-                          Choose between in-person or virtual sessions
-                        </span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs text-white">
-                          3
-                        </div>
-                        <span>
-                          Connect anonymously with a licensed counselor
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="rounded-md border p-4">
-                    <h3 className="font-medium">Available Counselors</h3>
-                    <div className="mt-4 space-y-3">
-                      {[
-                        {
-                          name: "Dr. Abebe",
-                          specialty: "Anxiety & Depression",
-                        },
-                        { name: "Dr. Sara", specialty: "Academic Stress" },
-                        {
-                          name: "Dr. Mekonnen",
-                          specialty: "Relationship Issues",
-                        },
-                      ].map((counselor, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center justify-between"
-                        >
-                          <div className="flex items-center gap-2">
-                            <Avatar>
-                              <AvatarImage
-                                src={`/placeholder.svg?height=40&width=40&text=${i}`}
-                              />
-                              <AvatarFallback>
-                                {counselor.name.charAt(0)}
-                              </AvatarFallback>
-                            </Avatar>
-                            <div>
-                              <p className="font-medium">{counselor.name}</p>
-                              <p className="text-xs text-muted-foreground">
-                                {counselor.specialty}
-                              </p>
-                            </div>
-                          </div>
-                          <Button variant="outline" size="sm">
-                            Book
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <p>Schedule a confidential session with our counselors.</p>
               </CardContent>
               <CardFooter>
-                <Button className="w-full">Schedule a Session</Button>
-              </CardFooter>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>AI Support Assistant</CardTitle>
-                <CardDescription>
-                  Get immediate support from our AI assistant
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="rounded-md bg-muted p-4">
-                    <h3 className="font-medium">Benefits</h3>
-                    <ul className="mt-2 space-y-2 text-sm">
-                      <li className="flex items-center gap-2">
-                        <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                        <span>Available 24/7 for immediate support</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                        <span>Completely anonymous and private</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                        <span>
-                          Can escalate to human counselors when needed
-                        </span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                        <span>Provides resources and coping strategies</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="rounded-md border p-4">
-                    <div className="flex items-center gap-3">
-                      <Avatar>
-                        <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                        <AvatarFallback>AI</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="font-medium">UniChain AI Assistant</p>
-                        <p className="text-xs text-muted-foreground">
-                          Trained on mental health resources
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 rounded-lg bg-muted p-3">
-                      <p className="text-sm">
-                        "Hi there! I'm here to listen and provide support. How
-                        are you feeling today?"
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full">Chat with AI Assistant</Button>
+                <Button className="w-full">Book Appointment</Button>
               </CardFooter>
             </Card>
           </div>
         </TabsContent>
 
         <TabsContent value="resources" className="mt-6">
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "Stress Management Guide",
-                description: "Techniques for managing academic stress",
-                image: "/placeholder.svg?height=200&width=300",
-                tokens: "5 UniTokens",
-              },
-              {
-                title: "Mindfulness Meditation",
-                description: "Audio guides for daily meditation practice",
-                image: "/placeholder.svg?height=200&width=300",
-                tokens: "10 UniTokens",
-              },
-              {
-                title: "Sleep Improvement",
-                description: "Strategies for better sleep quality",
-                image: "/placeholder.svg?height=200&width=300",
-                tokens: "5 UniTokens",
-              },
-              {
-                title: "Anxiety Workbook",
-                description: "Interactive exercises for anxiety management",
-                image: "/placeholder.svg?height=200&width=300",
-                tokens: "15 UniTokens",
-              },
-              {
-                title: "Healthy Relationships",
-                description: "Building and maintaining healthy connections",
-                image: "/placeholder.svg?height=200&width=300",
-                tokens: "8 UniTokens",
-              },
-              {
-                title: "Crisis Management",
-                description: "What to do during mental health emergencies",
-                image: "/placeholder.svg?height=200&width=300",
-                tokens: "Free",
-              },
-            ].map((resource, i) => (
-              <Card key={i} className="overflow-hidden">
-                <div className="aspect-video w-full overflow-hidden">
-                  <img
-                    src={resource.image || "/placeholder.svg"}
-                    alt={resource.title}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {resources.map((resource, index) => (
+              <Card key={index}>
                 <CardHeader>
-                  <CardTitle>{resource.title}</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <resource.icon className="h-5 w-5" />
+                    <CardTitle>{resource.title}</CardTitle>
+                  </div>
                   <CardDescription>{resource.description}</CardDescription>
                 </CardHeader>
-                <CardFooter className="flex justify-between">
-                  <Badge variant="outline">{resource.tokens}</Badge>
-                  <Button size="sm">Access Resource</Button>
+                <CardFooter>
+                  <Button className="w-full" onClick={() => window.open(resource.link, '_blank', 'noopener,noreferrer')}>
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    Access Resources
+                  </Button>
                 </CardFooter>
               </Card>
             ))}
