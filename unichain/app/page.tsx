@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, Brain, Search, ArrowRight, GraduationCap, Shield, Users, MapPin, Link } from "lucide-react";
+import { Briefcase, Brain, Search, ArrowRight, GraduationCap, Shield, Users, MapPin, Link, Coins } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Home() {
   return (
-<div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center w-full px-4">
-{/* Navigation */}
+    <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center w-full px-4">
+      {/* Navigation */}
       <header className="w-full">
         <div className="container mx-auto py-4 px-4 md:px-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -41,7 +41,7 @@ export default function Home() {
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">A Holistic Campus Ecosystem</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mb-10">
-            UniChain integrates academic credential verification, mental health support, and campus lost & found into a
+            UniChain integrates academic credential verification, mental health support, campus lost & found, and token minting into a
             single Solana-based platform for Ethiopian university students.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
@@ -74,18 +74,19 @@ export default function Home() {
               Features
             </Badge>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-              Three Powerful Solutions in One Platform
+              Four Powerful Solutions in One Platform
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              UniChain combines academic, mental health, and practical campus needs in a single decentralized application.
+              UniChain combines academic, mental health, practical campus needs, and token rewards in a single decentralized application.
             </p>
           </div>
 
           <Tabs defaultValue="educhain" className="w-full">
-            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-3 mb-12">
+            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 mb-12">
               <TabsTrigger value="educhain">EduChain</TabsTrigger>
               <TabsTrigger value="mental-health">Mental Health</TabsTrigger>
               <TabsTrigger value="lost-found">Lost & Found</TabsTrigger>
+              <TabsTrigger value="token-minting">Token Minting</TabsTrigger>
             </TabsList>
 
             <TabsContent value="educhain" className="space-y-4">
@@ -118,7 +119,7 @@ export default function Home() {
                 <div className="relative">
                   <div className="aspect-[4/3] rounded-xl overflow-hidden border bg-card shadow-lg">
                     <img
-                      src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1200"
+                      src="https://images.unsplash.com/photo-1523050854058-6d2451b23c66?auto=format&fit=crop&q=80&w=1200"
                       alt="EduChain NFT Credential"
                       className="w-full h-full object-cover"
                     />
@@ -199,6 +200,45 @@ export default function Home() {
                     <img
                       src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=1200"
                       alt="Lost and Found Interface"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="absolute -bottom-4 -right-4 -z-10 h-full w-full rounded-xl bg-gradient-to-br from-primary/20 to-primary/5"></div>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="token-minting" className="space-y-4">
+              <div className="container grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto px-4">
+                <div>
+                  <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <Coins className="h-6 w-6 text-primary" />
+                    UniCoin Token Economy
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    Earn and mint UniCoins through positive campus contributions, creating Ethiopia's first university-based token economy that rewards community engagement and support.
+                  </p>
+                  <ul className="space-y-3">
+                    {[
+                      "Earn tokens for helping fellow students find lost items",
+                      "Get rewarded for providing mental health peer support",
+                      "Exchange tokens for campus services and resources",
+                      "Build your reputation through verifiable contributions",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <ArrowRight className="h-3 w-3 text-primary" />
+                        </div>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="relative">
+                  <div className="aspect-[4/3] rounded-xl overflow-hidden border bg-card shadow-lg">
+                    <img
+                      src="https://images.unsplash.com/photo-1642543492481-44e81e3914a6?auto=format&fit=crop&q=80&w=1200"
+                      alt="UniCoin Token Economy"
                       className="w-full h-full object-cover"
                     />
                   </div>
