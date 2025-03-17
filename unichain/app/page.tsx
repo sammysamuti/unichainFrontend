@@ -65,7 +65,7 @@ export default function Home() {
           <div className="mt-16 relative w-full max-w-5xl mx-auto">
             <div className="aspect-[16/9] rounded-xl overflow-hidden border bg-card shadow-xl">
               <img
-                src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=2000"
+                src="/solana.png"
                 alt="Solana Blockchain Interface"
                 className="w-full h-full object-cover"
               />
