@@ -66,6 +66,8 @@ npm install
 npm run dev
 ```
 
+4. Signup if you want to join as a student if not login as an admin(email: admin@gmail.com and password: 1234)
+
 ## 💻 Tech Stack
 - Next.js 13+ with App Router
 - React 18
