@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌟 UniChain - Comprehensive University Management Platform
 
-## Getting Started
+## 🎯 About UniChain
+UniChain is a modern, blockchain-powered platform that revolutionizes university management by combining mental health support, digital assets, and campus services in one unified solution.
 
-First, run the development server:
+## ✨ Key Features
 
+### 💼 Admin Dashboard
+- User management and analytics
+- Blockchain transaction monitoring
+- Course management system
+- Credential verification
+- Token management
+- System-wide notifications
+- Support ticket handling
+
+### 💰 Digital Wallet & NFTs
+- Personal crypto wallet integration
+- NFT-based academic credentials
+- Token management and transactions
+- Blockchain-verified certificates
+- Solana integration
+
+### 🎭 Mental Health Support
+- Daily mood logging with emojis (😊 😐 😢 😡 😨 😴 🤩)
+- Personal notes and reflections
+- Mood history visualization
+- Progress tracking dashboard
+- Anonymous chat support
+- Support groups
+
+### 👥 Counseling Services
+- Easy session booking with professional counselors
+- Session management and scheduling
+- Real-time status updates
+- Upcoming session reminders
+
+### 🔍 Lost & Found System
+- Lost item reporting
+- Found item registration
+- Item matching system
+- Claim management
+- Notification system
+
+### 📅 Additional Features
+- Academic calendar integration
+- Course management
+- Support ticket system
+- Anonymous communication channels
+
+### 🔐 User Roles
+- **Admin**: Full system management and oversight
+- **Students**: Access to all services including wallet, NFTs, and support systems
+- **Counselors**: Session management and student support
+- **Staff**: Specific feature access based on role
+
+## 🚀 Getting Started
+
+1. Clone the repository
+2. Install dependencies:
+```bash
+npm install
+```
+3. Run the development server:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 💻 Tech Stack
+- Next.js 13+ with App Router
+- React 18
+- TypeScript
+- Tailwind CSS
+- Shadcn UI Components
+- Solana Web3.js
+- Blockchain Integration
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🤝 Contributing
+We welcome contributions! Please feel free to submit a Pull Request.
 
-## Learn More
+## 📝 License
+This project is licensed under the MIT License.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌈 Support
+Need help? Reach out to our support team or open an issue on GitHub.
