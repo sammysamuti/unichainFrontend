@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center w-full px-4">
       {/* Navigation */}
-      <header className="w-full">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto py-4 px-4 md:px-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Shield className="h-8 w-8" />
