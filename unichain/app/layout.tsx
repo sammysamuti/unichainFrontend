@@ -12,6 +12,7 @@ import { ClientTopNav } from "@/components/client-wrappers/topnav-wrapper";
 import { AdminSidebar } from "@/components/admin-components/admin-sidebar";
 import { AdminTopNav } from "@/components/admin-components/admin-top-nav";
 import { RouteTemplate } from "@/components/route-template";
+import { FloatingChatButton } from "@/components/FloatingChatButton";
 import { preloadComponents } from "./preload";
 import "./globals.css";
 import { usePathname } from "next/navigation";
@@ -35,6 +36,7 @@ export default function RootLayout({
   const isAuthPage = pathname === "/login" || pathname === "/signup";
   const isAdmin = pathname.startsWith("/admin");
   const isHome = pathname === "/"; 
+  const showFloatingChat = !isAuthPage && !isAdmin;
 
   if (isAuthPage) {
     return (
@@ -59,7 +61,10 @@ export default function RootLayout({
         >
           <SidebarProvider defaultOpen={false}>
             {isHome ? ( 
-              children
+              <>
+                {children}
+                {showFloatingChat && <FloatingChatButton />}
+              </>
             ) : (
               <div className="flex min-h-screen w-full flex-col md:flex-row bg-background">
                 <Suspense fallback={<Loading />}>
@@ -85,6 +90,7 @@ export default function RootLayout({
                     </div>
                   </main>
                 </div>
+                {showFloatingChat && <FloatingChatButton />}
               </div>
             )}
             <Toaster />
