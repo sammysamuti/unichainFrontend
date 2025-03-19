@@ -11,16 +11,15 @@ import { useTheme } from "next-themes"
 
 interface ChatInterfaceProps {
   isFloating?: boolean
+  setIsOpen?: (isOpen: boolean) => void // Accept setIsOpen as a prop
 }
 
-export function ChatInterface({ isFloating = false }: ChatInterfaceProps) {
+export function ChatInterface({ isFloating = false, setIsOpen }: ChatInterfaceProps) {
   const [userMessage, setUserMessage] = useState("")
   const [chat, setChat] = useState<{ role: string; text: string }[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const { theme } = useTheme()
 
-  const [isOpen, setIsOpen] = useState(false)
-  
   async function askAssistant() {
     if (!userMessage.trim()) return
 
@@ -69,34 +68,38 @@ export function ChatInterface({ isFloating = false }: ChatInterfaceProps) {
   }
 
   return (
-    <Card className={cn("bg-card text-card-foreground w-full max-w-3xl mx-auto h-[500px] flex flex-col")}> 
+    <Card className={cn("bg-card text-card-foreground w-full max-w-3xl mx-auto h-[500px] flex flex-col md:h-[600px] sm:h-[450px]")}> 
       {!isFloating && (
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Chat with AI</CardTitle>
+          <CardTitle className="text-xl md:text-2xl font-bold">Chat with AI</CardTitle>
         </CardHeader>
       )}
       
-      
-          <CardHeader className="p-4 border-b">
-            <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">AI Assistant</h2>
-              <Button onClick={() => setIsOpen(false)} variant="ghost" size="icon" className="h-8 w-8">
-                <X className="h-4 w-4" />
-                <span className="sr-only">Close</span>
-              </Button>
-            </div>
-          </CardHeader>
-          
+      <CardHeader className="p-4 border-b">
+        <div className="flex justify-between items-center">
+          <h2 className="text-md md:text-lg font-semibold">AI Assistant</h2>
+          <Button 
+            onClick={() => setIsOpen?.(false)}  // Close the chat using setIsOpen
+            variant="ghost" 
+            size="icon" 
+            className="h-8 w-8"
+          >
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </Button>
+        </div>
+      </CardHeader>
+
       <CardContent className="overflow-y-auto flex-1 p-4">
         {chat.length === 0 ? (
-          <div className="flex items-center justify-center h-full text-muted-foreground">
+          <div className="flex items-center justify-center h-full text-muted-foreground text-sm md:text-base">
             <p>Start a conversation...</p>
           </div>
         ) : (
           <div className="space-y-4">
             {chat.map((msg, index) => (
               <div key={index} className={cn("flex", msg.role === "user" ? "justify-end" : "justify-start")}> 
-                <div className={cn("max-w-[80%] rounded-lg p-3 break-words", msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground")}>
+                <div className={cn("max-w-[85%] md:max-w-[80%] rounded-lg p-3 break-words", msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground")}>
                   <p>{formatText(msg.text)}</p>
                 </div>
               </div>
@@ -106,14 +109,14 @@ export function ChatInterface({ isFloating = false }: ChatInterfaceProps) {
       </CardContent>
 
       <CardFooter className="border-t p-4">
-        <div className="flex w-full gap-2">
+        <div className="flex w-full gap-2 flex-row">
           <Input
             type="text"
             value={userMessage}
             onChange={(e) => setUserMessage(e.target.value)}
             onKeyDown={handleKeyPress}
             placeholder="Type your message..."
-            className="flex-grow"
+            className="flex-grow text-sm md:text-base"
             disabled={isLoading}
           />
           <Button onClick={askAssistant} disabled={isLoading || !userMessage.trim()} size="icon">

@@ -1,9 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { MessageSquare, X } from "lucide-react"
+import { MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { ChatInterface } from "@/app/ai-assistant/page"
 
 export function FloatingChatButton() {
@@ -12,8 +11,7 @@ export function FloatingChatButton() {
   return (
     <div className="fixed bottom-4 right-4 z-50">
       {isOpen ? (
-       <ChatInterface isFloating={true} />
-     
+        <ChatInterface isFloating={true} setIsOpen={setIsOpen} />
       ) : (
         <Button
           onClick={() => setIsOpen(true)}
@@ -27,4 +25,3 @@ export function FloatingChatButton() {
     </div>
   )
 }
-
