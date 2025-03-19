@@ -34,12 +34,12 @@ export default function AddKnowledgePage() {
         setAnswer("");
       } else {
         const error = await res.json();
-        throw new Error(error.message);
+        throw new Error(error.message || "Failed to add knowledge");
       }
-    } catch (error) {
+    } catch (error: any) {
       setFeedback({
         type: "error",
-        message: error.message || "Error adding knowledge"
+        message: error?.message || "Error adding knowledge"
       });
     } finally {
       setIsLoading(false);
