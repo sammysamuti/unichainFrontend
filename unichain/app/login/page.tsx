@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -26,6 +26,7 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -41,7 +42,10 @@ export default function LoginPage() {
 
     try {
       // Check for admin credentials first
-      if (formData.email === "admin@gmail.com" && formData.password === "1234") {
+      if (
+        formData.email === "admin@gmail.com" &&
+        formData.password === "1234"
+      ) {
         localStorage.setItem("isAdmin", "true");
         toast.success("Admin login successful");
         router.push("/admin");
@@ -107,13 +111,29 @@ export default function LoginPage() {
                   Forgot password?
                 </Link>
               </div>
-              <Input 
-                id="password" 
-                type="password"
-                onChange={handleChange}
-                value={formData.password}
-                required
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  onChange={handleChange}
+                  value={formData.password}
+                  required
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  tabIndex={-1}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox id="remember" />
@@ -123,11 +143,7 @@ export default function LoginPage() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            <Button 
-              type="submit" 
-              className="w-full"
-              disabled={loading}
-            >
+            <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Signing in..." : "Sign in"}
             </Button>
             <div className="text-center text-sm">
@@ -138,6 +154,31 @@ export default function LoginPage() {
             </div>
           </CardFooter>
         </form>
+      </Card>
+
+      {/* Demo credentials card */}
+      <Card className="mx-auto w-full max-w-md mt-6 border-dashed border-2 border-primary/30 bg-muted/30">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-lg">Demo Credentials</CardTitle>
+          <CardDescription>Use these to quickly try the app</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3 text-sm">
+          <div>
+            <span className="font-semibold">Admin Login</span>
+            <br />
+            <span>Email:</span>{" "}
+            <span className="select-all">admin@gmail.com</span>
+            <br />
+            <span>Password:</span> <span className="select-all">1234</span>
+          </div>
+          <div>
+            <span className="font-semibold">Student Quick Login</span>
+            <br />
+            <span>Email:</span> <span className="select-all">ss@gmail.com</span>
+            <br />
+            <span>Password:</span> <span className="select-all">ssss</span>
+          </div>
+        </CardContent>
       </Card>
 
       <div className="mt-8 text-center text-sm text-muted-foreground">

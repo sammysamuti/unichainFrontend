@@ -36,7 +36,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-
 export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
@@ -44,14 +43,7 @@ export function AppSidebar() {
     <Sidebar variant="floating" collapsible="icon">
       <SidebarHeader className="pb-0">
         <div className="flex items-center gap-2 px-1 py-2">
-          <Avatar className="h-8 w-8">
-            <AvatarImage
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=800&auto=format&fit=crop&q=60"
-              alt="@user"
-            />
-            <AvatarFallback>US</AvatarFallback>
-          </Avatar>
-          {!collapsed && ( 
+          {!collapsed && (
             <div className="flex flex-col">
               <span className="text-sm font-medium">Student</span>
               <span className="text-xs text-muted-foreground">
@@ -59,7 +51,6 @@ export function AppSidebar() {
               </span>
             </div>
           )}
-
         </div>
       </SidebarHeader>
       <SidebarSeparator />
@@ -207,8 +198,6 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
-
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
@@ -221,20 +210,19 @@ export function AppSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
-      
+
         {collapsed ? (
-            <SidebarMenuButton tooltip="Disconnect">
-              <Wallet className="h-6 w-6 pl-0" />
-            </SidebarMenuButton>
-          ) : (
-            <div className="p-4">
+          <SidebarMenuButton tooltip="Disconnect">
+            <Wallet className="h-6 w-6 pl-0" />
+          </SidebarMenuButton>
+        ) : (
+          <div className="p-4">
             <Button className="w-full" variant="outline">
               <Wallet className="mr-2 h-4 w-4" />
               Disconnect
             </Button>
-            </div>
-          )}
-      
+          </div>
+        )}
       </SidebarFooter>
     </Sidebar>
   );
